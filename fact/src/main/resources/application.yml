@@ -1,0 +1,33 @@
+server:
+  port: 8080
+spring:
+  tengxun:
+
+  datasource:
+    username: root
+    password: Wwe~6895238
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://118.25.91.78:3306/way?characterEncoding=utf8&useSSL=false
+    hikari:
+      validation-timeout: 3000
+      connection-timeout: 60000
+      idle-timeout: 60000
+      max-lifetime: 60000
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+  redis:
+    port: 6379
+    password: 123456
+    host: 118.25.91.78
+    jedis:
+      pool:
+        max-wait: -1
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    database: 0
+    timeout: 100000
+
