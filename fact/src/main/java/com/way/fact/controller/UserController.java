@@ -59,8 +59,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/list")
-    public Result list(@PageableDefault(size = 1)Pageable pageable , @Valid User user){
-        Page<User> list = userService.findAll(pageable , user);
+    public Result list(@PageableDefault(size = 1)Pageable pageable , @RequestParam("username") String username){
+        Page<User> list = userService.findAll(pageable , username);
         return ResultUtils.success(list);
     }
 
@@ -102,10 +102,6 @@ public class UserController {
     @RequestMapping("/delete/{id}")
     public Result delete(@PathVariable int id){
         Object user = userDao.findById(id);
-
-        if(user == null){
-            return ResultUtils.error(10003 , "删除用户不存在");
-        }
 
         userDao.deleteById(id);
         return ResultUtils.success(user);

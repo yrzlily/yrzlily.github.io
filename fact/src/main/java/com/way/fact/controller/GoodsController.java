@@ -51,12 +51,12 @@ public class GoodsController {
     /**
      * 多条件分页查询商品
      * @param pageable
-     * @param good
+     * @param name
      * @return
      */
     @PostMapping("/all")
-    public Result index(@PageableDefault(value = 7) Pageable pageable, @Valid Goods good){
-        Page<Goods> goods = goodsService.findAll(pageable,good);
+    public Result index(@PageableDefault(value = 7) Pageable pageable, @RequestParam("name") String name){
+        Page<Goods> goods = goodsService.findAll(pageable,name);
         return ResultUtils.success(goods);
     }
 

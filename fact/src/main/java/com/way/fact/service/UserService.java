@@ -25,12 +25,12 @@ public class UserService {
     /**
      * 用户列表分页模糊查询
      * @param pageable
-     * @param user
+     * @param username
      * @return
      */
     public Page<User> findAll(
             Pageable pageable,
-            User user
+            String username
             ){
         return userDao.findAll(new Specification<User>() {
 
@@ -42,8 +42,8 @@ public class UserService {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 
-                if(user.getUsername() != null){
-                    criteriaQuery.where(criteriaBuilder.like(root.get("username").as(String.class) ,"%" + user.getUsername() + "%"));
+                if(username != null){
+                    criteriaQuery.where(criteriaBuilder.like(root.get("username").as(String.class) ,"%" + username + "%"));
                 }
 
                 return criteriaQuery.getRestriction();

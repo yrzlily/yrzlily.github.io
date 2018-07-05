@@ -18,6 +18,7 @@ public class User implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    @Column(unique = true)
     @NotEmpty(message = "用户名不能为空")
     private String username;
 
