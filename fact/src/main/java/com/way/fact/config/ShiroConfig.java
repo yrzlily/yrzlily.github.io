@@ -1,6 +1,7 @@
 package com.way.fact.config;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -49,7 +50,7 @@ public class ShiroConfig  {
         filterFactoryBean.setSuccessUrl("/user/index");
 
         //未授权界面;
-        filterFactoryBean.setUnauthorizedUrl("/user/403");
+        filterFactoryBean.setUnauthorizedUrl("/login/unAuth");
 
         filterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return filterFactoryBean;
@@ -84,9 +85,21 @@ public class ShiroConfig  {
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
         securityManager.setSessionManager(sessionManager());
+        securityManager.setRealm(myShiroRealm());
         return securityManager;
+    }
+
+    /**
+     * 加入注解的使用
+     * @param securityManager
+     * @return
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
     }
 
 }

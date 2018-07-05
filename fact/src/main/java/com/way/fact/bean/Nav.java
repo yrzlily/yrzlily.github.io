@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Nav implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
+    @NotEmpty(message = "名称不能为空")
     private String name;
 
     private Long time;

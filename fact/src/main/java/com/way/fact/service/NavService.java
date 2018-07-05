@@ -2,7 +2,6 @@ package com.way.fact.service;
 
 import com.way.fact.bean.Nav;
 import com.way.fact.dao.NavDao;
-import com.way.fact.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,11 @@ public class NavService   {
 
     private final static Logger log = LoggerFactory.getLogger(NavService.class);
 
+    /**
+     * 添加菜单
+     * @param nav
+     */
     public void addNav(Nav nav){
-
         nav.setTime(System.currentTimeMillis());
         navDao.save(nav);
     }
@@ -31,10 +33,9 @@ public class NavService   {
     /**
      * 修改
      */
-    public Nav editNav(Nav nav){
+    public void editNav(Nav nav){
         nav.setTime(System.currentTimeMillis());
         navDao.save(nav);
-        return nav;
     }
 
     /**

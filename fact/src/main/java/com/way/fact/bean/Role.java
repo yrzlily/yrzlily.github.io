@@ -30,7 +30,7 @@ public class Role implements Serializable {
      * 角色->权限
      * @return
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "roleId")},inverseJoinColumns = {@JoinColumn(name = "permissionId")})
     private List<Permission> permissions;
 

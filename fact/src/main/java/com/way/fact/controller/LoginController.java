@@ -50,9 +50,22 @@ public class LoginController {
         return "login";
     }
 
+    /**
+     * 默认登陆页面
+     * @return
+     */
     @RequestMapping("/index")
     public String index(){
         return "index";
     }
 
+    /**
+     * 未授权跳转页面
+     * @return
+     */
+    @RequestMapping("/unAuth")
+    public String unauthorizedRole(){
+        System.out.println("------没有权限-------");
+        return "403";
+    }
 }

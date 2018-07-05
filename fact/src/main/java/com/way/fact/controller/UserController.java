@@ -3,6 +3,7 @@ package com.way.fact.controller;
 import com.way.fact.bean.Result;
 import com.way.fact.bean.User;
 import com.way.fact.dao.UserDao;
+import com.way.fact.enums.UserEnum;
 import com.way.fact.service.UserService;
 import com.way.fact.utils.ResultUtils;
 import org.apache.shiro.SecurityUtils;
@@ -13,13 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
  * @author Administrator
  */
-@RequestMapping("/user")
+@RequestMapping(value = {"/user" , "/"})
 @RestController
 public class UserController {
 
@@ -35,10 +37,11 @@ public class UserController {
      * 用户首页
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping(value = {"/index" , ""})
     public String index(){
+
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        log.info("信息 = {}" , user.getId());
+        log.info("用户id = {}" , user.getId());
         return "用户首页";
     }
 
@@ -49,12 +52,6 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(){
         return "退出";
-    }
-
-    @RequestMapping("/403")
-    public String unauthorizedRole(){
-        System.out.println("------没有权限-------");
-        return "403";
     }
 
     /**
@@ -73,10 +70,11 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
-    public Result add(@Valid User user){
-        //判断是否为空
-        if(user == null){
-            return ResultUtils.error(10001 , "数据为空");
+    public Object add(@Valid User user , BindingResult bindingResult){
+
+        //判断是否有误
+        if(bindingResult.hasErrors()){
+            return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
         }
 
         //MD5加密

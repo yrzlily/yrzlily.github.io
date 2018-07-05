@@ -22,6 +22,12 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * 用户列表分页模糊查询
+     * @param pageable
+     * @param user
+     * @return
+     */
     public Page<User> findAll(
             Pageable pageable,
             User user

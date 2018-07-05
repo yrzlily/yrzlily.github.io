@@ -1,6 +1,9 @@
 package com.way.fact.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,13 +18,15 @@ public class User implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    @NotEmpty(message = "用户名不能为空")
     private String username;
 
+    @NotEmpty(message = "密码不能为空")
     private String password;
 
+    private Long status = 1L;
 
-    private Long status;
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "SysUserRole" , joinColumns = {@JoinColumn(name = "uid")},inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private List<Role> roles;

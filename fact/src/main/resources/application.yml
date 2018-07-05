@@ -1,8 +1,6 @@
 server:
   port: 8080
 spring:
-  tengxun:
-
   datasource:
     username: root
     password: Wwe~6895238
