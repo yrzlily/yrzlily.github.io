@@ -21,7 +21,7 @@ import javax.validation.Valid;
 /**
  * @author Administrator
  */
-@RequestMapping(value = {"/user" , "/"})
+@RequestMapping(value = {"/user"})
 @RestController
 public class UserController {
 
@@ -37,11 +37,11 @@ public class UserController {
      * 用户首页
      * @return
      */
-    @RequestMapping(value = {"/index" , ""})
+    @RequestMapping(value = {"/index"})
     public String index(){
 
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        log.info("用户id = {}" , user.getId());
+        log.info("user_id = {}" , user.getId());
         return "用户首页";
     }
 
@@ -59,7 +59,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/list")
-    public Result list(@PageableDefault(size = 1)Pageable pageable , @RequestParam("username") String username){
+    public Result list(@PageableDefault(size = 1)Pageable pageable , @RequestParam("username") String username ){
+
         Page<User> list = userService.findAll(pageable , username);
         return ResultUtils.success(list);
     }
@@ -79,12 +80,6 @@ public class UserController {
 
         //MD5加密
         String salt = new SimpleHash("MD5" , user.getPassword() , null , 1024).toString();
-
-        //判断用户是否存在
-        User username = userDao.findByUsername(user.getUsername());
-        if(username != null){
-            return ResultUtils.error(10002 , "用户名已存在");
-        }
 
         //添加操作
         user.setUsername(user.getUsername());

@@ -35,7 +35,7 @@ public class ShiroConfig  {
 
         //免权限路劲
         filterChainDefinitionMap.put("/nav","anon");
-        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/login/**","anon");
 
         //登出路劲
         filterChainDefinitionMap.put("/user/logout","logout");
@@ -44,7 +44,7 @@ public class ShiroConfig  {
         filterChainDefinitionMap.put("/**","authc");
 
         //未登录跳转界面
-        filterFactoryBean.setLoginUrl("/login/check");
+        filterFactoryBean.setLoginUrl("/login/index");
 
         //登录成功跳转界面
         filterFactoryBean.setSuccessUrl("/user/index");

@@ -1,43 +1,45 @@
 package com.way.fact.controller;
 
 
+import com.way.fact.bean.Result;
 import com.way.fact.bean.User;
+import com.way.fact.utils.ResultUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 
 /**
  * @author Administrator
  */
 @RequestMapping("/login")
-@RestController
+@Controller
 public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     /**
      * 登陆请求
-     * @param user
      * @return
      */
-    @RequestMapping("/check")
-    public String login(@Valid User user){
+    @PostMapping("/check")
+    @ResponseBody
+    public Result login(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername() , user.getPassword());
         String msg;
         try {
             token.setRememberMe(true);
             subject.login(token);
             log.info("token = {}" , token);
-            msg = "用户登录成功";
+            return ResultUtils.success(token);
         }catch (UnknownAccountException e) {
-            msg = "用户账号未登录";
+            msg = "用户账号不存在";
         } catch (LockedAccountException e) {
             msg = "用户账号被锁定";
         } catch (DisabledAccountException e) {
@@ -47,16 +49,17 @@ public class LoginController {
         }
         log.info("登录状态：{}" , msg);
 
-        return "login";
+        return ResultUtils.error(10000 , msg);
     }
 
     /**
-     * 默认登陆页面
+     * 未登录跳转页面
      * @return
      */
     @RequestMapping("/index")
-    public String index(){
-        return "index";
+    public ModelAndView index(ModelAndView view){
+        view.setViewName("/login/index");
+        return view;
     }
 
     /**
