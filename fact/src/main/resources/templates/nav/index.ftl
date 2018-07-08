@@ -11,11 +11,14 @@
                     <el-tab-pane label="菜单列表">
                         <div class="grid-content bg-purple">
                             <el-tree
+                                    default-expand-all
+                                    draggable
                                     :data="data"
                                     :props="defaultProps"
-                                    default-expand-all
+                                    :allow-drop="allowDrop"
                                     :expand-on-click-node="false"
-                                    @node-click="handleNodeClick">
+                                    @node-click="handleNodeClick"
+                                    @node-drop="handleDrop">
                             </el-tree>
                         </div>
                     </el-tab-pane>
@@ -100,10 +103,10 @@
             return {
                 data: [
                     {
+                        id:0,
                         name:'顶部菜单',
                         nav:'',
                         parent_id:0
-
                     }
                 ],
                 defaultProps: {
@@ -243,6 +246,52 @@
                     }
                 });
 
+            },
+            handleDrop(draggingNode, dropNode, dropType, ev) {
+                console.log('tree drop: ', draggingNode.label);
+                console.log('tree drop: ', dropNode.label, dropType);
+                console.log(draggingNode.data.id);
+                console.log(dropNode.data.id);
+                var data = {
+                    name:draggingNode.data.name,
+                    url:draggingNode.data.url,
+                    id:draggingNode.data.id,
+                    parentId:'',
+                    sort:draggingNode.data.sort
+                };
+
+                switch (dropType){
+                    case 'before':
+                        data.parentId = dropNode.data.parentId;
+                        data.sort = dropNode.data.sort===0?0:dropNode.data.sort-1;
+                        break;
+                    case  'after':
+                        data.parentId = dropNode.data.parentId;
+                        data.sort = dropNode.data.sort===dropNode.data.sort+1;
+                        break;
+                    case  'inner':
+                        data.parentId = dropNode.data.id;
+                        break;
+                }
+                console.log(data);
+                axios.post('/nav/move',{
+                    url:data.url,
+                    name:data.name,
+                    id:data.id,
+                    parentId:data.parentId,
+                    sort:data.sort
+                }).then(function (value) {
+                    console.log(value);
+                })
+            },
+            allowDrop(draggingNode, dropNode, type) {
+                if(dropNode.data.id === 0 && type ==='prev' ){
+                    return type !== 'prev';
+                }else if(dropNode.data.id === 0 && type ==='next' ){
+                    return type !== 'next';
+                }else{
+                    return true;
+                }
             }
         }
     });

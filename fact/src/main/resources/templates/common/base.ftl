@@ -16,6 +16,9 @@
     </style>
 </head>
 <body>
+<@block name="body">
+
+</@block>
 <div id="app">
     <@block name="app">
 

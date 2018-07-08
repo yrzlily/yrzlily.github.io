@@ -96,6 +96,7 @@ public class NavController {
         nav.setImages(nav.getImages());
         nav.setId(nav.getId());
         nav.setName(nav.getName());
+        nav.setUrl(nav.getUrl());
         nav.setSort(nav.getSort());
         nav.setParentId(nav.getParentId());
         navService.editNav(nav);
@@ -111,7 +112,7 @@ public class NavController {
         return ResultUtils.success(obj);
     }
 
-    /** 
+    /**
      * 遍历所有
      */
     @GetMapping("/list")
@@ -155,6 +156,23 @@ public class NavController {
         }
 
         return ResultUtils.success(list);
+    }
+
+    /**
+     * 移动节点
+     * @param nav
+     * @return
+     */
+    @PostMapping("/move")
+    public Result move(@RequestBody Nav nav){
+
+        nav.setName(nav.getName());
+        nav.setId(nav.getId());
+        nav.setSort(nav.getSort());
+        nav.setUrl(nav.getUrl());
+        nav.setParentId(nav.getParentId());
+        navService.editNav(nav);
+        return ResultUtils.success(nav);
     }
 
     /**
