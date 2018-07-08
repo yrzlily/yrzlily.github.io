@@ -1,8 +1,15 @@
 server:
   port: 8080
 spring:
-  tengxun:
-
+  freemarker:
+    charset: UTF-8
+    content-type: text/html
+    suffix: .ftl
+    template-loader-path: classpath:/templates
+    cache: false
+    allow-request-override: true
+    allow-session-override: true
+    check-template-location: true
   datasource:
     username: root
     password: Wwe~6895238
@@ -30,4 +37,6 @@ spring:
         min-idle: 0
     database: 0
     timeout: 100000
+  resources:
+    static-locations: classpath:/templates/static
 

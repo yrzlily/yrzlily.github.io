@@ -25,6 +25,11 @@ public class ArticleController {
     @Autowired
     private BookDao bookDao;
 
+    /**
+     * 作家详情
+     * @param id
+     * @return
+     */
     @GetMapping("/find/{id}")
     public Result find(@PathVariable("id") Integer id){
 
@@ -33,6 +38,11 @@ public class ArticleController {
         return ResultUtils.success(article);
     }
 
+    /**
+     * 删除作家
+     * @param id
+     * @return
+     */
     @PostMapping("/delete")
     public Result delete(@RequestParam("id") Integer id){
         Optional<Article> article = articleDao.findById(id);
@@ -41,6 +51,10 @@ public class ArticleController {
         return ResultUtils.success(article);
     }
 
+    /**
+     * 寻找所有作家
+     * @return
+     */
     @GetMapping("/all")
     public Result index(){
 

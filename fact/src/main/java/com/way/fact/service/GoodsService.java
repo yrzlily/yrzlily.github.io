@@ -23,12 +23,12 @@ public class GoodsService {
     /**
      * 分页模糊查询
      * @param pageable
-     * @param goods
+     * @param name
      * @return
      */
     public Page<Goods> findAll(
             Pageable pageable,
-            Goods goods
+            String name
     ){
 
         return goodsDao.findAll(new Specification<Goods>(){
@@ -43,8 +43,8 @@ public class GoodsService {
 
                 List<Predicate> predicate = new ArrayList<>();
                 //名称模糊查询
-                if(goods.getName()!=null){
-                    predicate.add(criteriaBuilder.like(root.get("name").as(String.class),"%"+goods.getName()+"%"));
+                if(name != null){
+                    predicate.add(criteriaBuilder.like(root.get("name").as(String.class),"%"+ name +"%"));
                 }
                 Predicate[] predicates = new Predicate[predicate.size()];
                 criteriaQuery.where(criteriaBuilder.and(predicate.toArray(predicates)));

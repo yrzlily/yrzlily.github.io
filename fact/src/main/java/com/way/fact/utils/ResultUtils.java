@@ -1,6 +1,7 @@
 package com.way.fact.utils;
 
 import com.way.fact.bean.Result;
+import com.way.fact.enums.UserEnum;
 
 /**
  * @author Administrator
@@ -30,4 +31,8 @@ public class ResultUtils {
         return result;
     }
 
+    public static Object error(UserEnum nullError) {
+
+        return nullError;
+    }
 }

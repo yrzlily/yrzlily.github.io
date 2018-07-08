@@ -26,17 +26,19 @@ public class MyShiroRealm extends AuthorizingRealm {
     private final static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
 
     /**
-     * 配置验证
+     * 权限验证
      * @param principals
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        User userInfo  = (User)principals.getPrimaryPrincipal();
-        for(Role role:userInfo.getRoles()){
+        User user = (User) principals.getPrimaryPrincipal();
+
+        for (Role role : user.getRoles()) {
             authorizationInfo.addRole(role.getRole());
-            for(Permission p:role.getPermissions()){
+            for (Permission p : role.getPermissions()) {
                 authorizationInfo.addStringPermission(p.getPermission());
             }
         }
