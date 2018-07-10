@@ -43,7 +43,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/index")
-    public Result index(@PageableDefault(size = 1)Pageable pageable , @Valid Role role){
+    public Result index(@PageableDefault(size = 5)Pageable pageable , @Valid Role role){
         Object list = roleService.findAll(pageable , role);
         return ResultUtils.success(list);
     }

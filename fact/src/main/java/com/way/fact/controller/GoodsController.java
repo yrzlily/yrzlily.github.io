@@ -55,7 +55,7 @@ public class GoodsController {
      * @return
      */
     @PostMapping("/all")
-    public Result index(@PageableDefault(value = 7) Pageable pageable, @RequestParam("name") String name){
+    public Result index(@PageableDefault(value = 7) Pageable pageable, @RequestParam(value = "name" , required = false) String name){
         Page<Goods> goods = goodsService.findAll(pageable,name);
         return ResultUtils.success(goods);
     }
@@ -123,12 +123,11 @@ public class GoodsController {
     /**
      * 编辑商品
      * @param goods
-     * @param list
      * @param bindingResult
      * @return
      */
     @PostMapping("/edit")
-    public Result edit(@Valid Goods goods , @RequestParam(value = "type" , required = false) List<Type> list , BindingResult bindingResult){
+    public Result edit(@Valid Goods goods , BindingResult bindingResult){
 
         if(goods == null){
             return ResultUtils.error(10002 , bindingResult.getFieldError().getDefaultMessage());
@@ -137,10 +136,6 @@ public class GoodsController {
         goods.setId(goods.getId());
         goods.setName(goods.getName());
         goods.setSort(goods.getSort());
-
-        //编辑分类
-        goods.setTypeList(list);
-
 
         goodsDao.save(goods);
         return ResultUtils.success(goods);

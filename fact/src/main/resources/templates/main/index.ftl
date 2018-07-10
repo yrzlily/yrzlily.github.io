@@ -4,65 +4,72 @@
     #content , .tac{height: 100%;}
     .header{padding: 0;}
     .main-header{padding: 0 60px;}
-    .main-center{width: 100%; height: 100%; padding: 0;}
+    .main-center{width: 100%; height: 100%; padding: 0; overflow: hidden;}
+    iframe{height: calc(99.7% - 60px); width: 100%;}
+    .aside{height: 100%;}
+    .leftBox{height: 100%; width: 250px !important;}
     iframe{height: 99%; width: 100%;}
     .aside{height: 100%;}
-    .leftBox{height: 100%;}
-    .menuLeft{height: 100%;}
+    .leftBox{height: 100%; background-color: #393d49;}
+    .menuLeft{height: calc(100% - 60px); border-right: 0;}
     .tac .cols{height: 100%;}
+    .el-header{padding: 0;background-color: #393D49;}
 </style>
 </@override>
 <@override name="app">
 <el-container id="content">
     <el-aside class="leftBox">
         <el-row class="tac">
-            <el-col :span="12" class="cols">
+            <el-col :span="24" class="cols">
+                <div class="logo" style="width: 100%; height: 60px; overflow: hidden;">
+
+                </div>
                 <el-menu
                         class="menuLeft"
                         default-active="2"
                         class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
-                        background-color="#545c64"
-                        text-color="#fff"
+                        background-color="#393d49"
+                        text-color="#ffffffb3"
                         active-text-color="#ffd04b">
-                    <el-submenu index="1">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>导航一</span>
+                    <el-submenu v-for="item in menu" :key="item.id" :index="item.name" :data="item" :route="item.url">
+                        <template slot="title" >
+                            <i :class="item.images"></i>
+                            <span>{{item.name}}</span>
                         </template>
-                        <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
-                    </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
+                        <label >
+                            <el-menu-item
+                                    v-for="val in item.nav"
+                                    :key="val.id"
+                                    :route="val.url"
+                                    @click="router"
+                                    :index="val.name">
+                                {{val.name}}
+                            </el-menu-item>
+                        </label>
                 </el-menu>
             </el-col>
         </el-row>
     </el-aside>
-
     <el-main class="main-center">
-        <iframe id="window-box" src=""></iframe>
+        <el-header>
+            <ul class="layui-nav layui-layout-right" >
+                <li class="layui-nav-item">
+                    <a href="">控制台<span class="layui-badge">9</span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href=""><img src="http://t.cn/RCzsdCq" class="layui-nav-img">${user.username}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                        <dd><a href="javascript:;">安全管理</a></dd>
+                        <dd><a href="javascript:;">退了</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </el-header>
+        <iframe src="" ref="windowBox"></iframe>
     </el-main>
 </el-container>
 </@override>
@@ -70,17 +77,24 @@
     <script>
         var app = new Vue({
             el:"#app",
-            data(){
-                return {
-                    index:1
-                }
+            data:{
+                menu : {}
+            },
+            mounted :function () {
+                var that = this;
+                axios.get("/nav/parentId/0").then(
+                    function (response) {
+                        axios.get("/nav/parentId/0").then(
+                            function (response) {
+                                that.menu = response.data.data[0];
+                            }
+                        )
+                    }
+                )
             },
             methods: {
-                handleOpen(key, keyPath) {
-                    console.log(key, keyPath);
-                },
-                handleClose(key, keyPath) {
-                    console.log(key, keyPath);
+                router(data) {
+                    this.$refs.windowBox.setAttribute('src', data.route);
                 }
             }
         });

@@ -18,10 +18,10 @@ public class Type {
     @GeneratedValue
     private Integer id;
 
-    private String name;
+    private String typeName;
 
     @JsonIgnoreProperties("typeList")
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER,mappedBy = "typeList")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "typeList")
     private List<Goods> goodsList;
 
     public Integer getId() {
@@ -32,12 +32,19 @@ public class Type {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
+    }
 }

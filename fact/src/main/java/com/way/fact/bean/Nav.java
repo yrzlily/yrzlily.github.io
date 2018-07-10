@@ -25,11 +25,23 @@ public class Nav implements Serializable {
     private Long time;
 
     @ColumnDefault(value = "0")
+    @Column(columnDefinition = "INT default 0")
     private Integer sort;
 
-    private Integer parentId = 0;
+    @Column(name = "parent_id")
+    private Integer parentId;
 
     private String images;
+
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getImages() {
         return images;

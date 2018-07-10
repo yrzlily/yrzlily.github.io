@@ -1,5 +1,9 @@
 package com.way.fact.bean;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -22,6 +26,7 @@ public class Role implements Serializable {
     /**
      * 用户->角色
      */
+    @JsonIgnoreProperties(value = {"roles"})
     @ManyToMany
     @JoinTable(name = "SysUserRole" , joinColumns = {@JoinColumn(name = "roleId")},inverseJoinColumns = {@JoinColumn(name = "uid")})
     private List<User> userInfo;

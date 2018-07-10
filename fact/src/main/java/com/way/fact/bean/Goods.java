@@ -32,7 +32,7 @@ public class Goods implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonIgnoreProperties("goodsList")
-    @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "goods_type",joinColumns = {@JoinColumn(name = "goods_id")} , inverseJoinColumns = {@JoinColumn(name = "type_id")})
     private List<Type> typeList ;
 

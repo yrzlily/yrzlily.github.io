@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.beans.IntrospectionException;
@@ -44,23 +46,31 @@ public class NavController {
     private RedisUtils redisUtils;
 
     /**
+     * 导航设置
+     * @param view
+     * @return
+     */
+    @GetMapping("/index")
+    public ModelAndView index(ModelAndView view){
+        view.setViewName("/nav/index");
+        return view;
+    }
+
+    /**
      * 添加
      */
     @PostMapping("/add")
     public Object addNav(
-            @Valid Nav nav ,
-            @RequestParam("file") MultipartFile file,
-            HttpServletRequest request,
+            @RequestBody @Valid Nav nav ,
             BindingResult bindingResult
-    ) throws IOException {
+    )  {
 
-        if(nav==null){
+        if(bindingResult.hasErrors()){
             return ResultUtils.error(-1,bindingResult.getFieldError().getDefaultMessage());
         }
 
-        String images = cosConfig.cosFileUpload(file , request);
 
-        nav.setImages(images);
+        nav.setImages(nav.getImages());
         nav.setName(nav.getName());
         nav.setSort(nav.getSort());
         nav.setParentId(nav.getParentId());
@@ -76,20 +86,17 @@ public class NavController {
      */
     @PostMapping("/edit")
     public Object editNav(
-            @Valid Nav nav,
-            @RequestParam("file") MultipartFile file,
-            BindingResult bindingResult,
-            HttpServletRequest request
-            ) throws IOException {
-        if(nav==null){
+            @RequestBody @Valid Nav nav,
+            BindingResult bindingResult
+            )  {
+        if(bindingResult.hasErrors()){
             return ResultUtils.error(-1,bindingResult.getFieldError().getDefaultMessage());
         }
 
-        String images = fileUtils.upload(file , request);
-
-        nav.setImages(images);
+        nav.setImages(nav.getImages());
         nav.setId(nav.getId());
         nav.setName(nav.getName());
+        nav.setUrl(nav.getUrl());
         nav.setSort(nav.getSort());
         nav.setParentId(nav.getParentId());
         navService.editNav(nav);
@@ -100,14 +107,9 @@ public class NavController {
      * 删除
      */
     @PostMapping("/del")
-    public Object delNav(@Valid Nav nav, BindingResult bindingResult){
-        Optional<Nav> navs = navService.delNav(nav.getId());
-
-        if(navs==null){
-            return ResultUtils.error(-2,bindingResult.getFieldError().getDefaultMessage());
-        }
-
-        return ResultUtils.success(navs);
+    public Object delNav(@RequestBody Nav nav){
+        Optional<Nav> obj = navService.delNav(nav.getId());
+        return ResultUtils.success(obj);
     }
 
     /**
@@ -149,11 +151,28 @@ public class NavController {
 
             list = navService.findAllByParentId(navDao.findAll() , 0);
             redisUtils.forList("nav" , list);
-            redisUtils.setKeyLifeTime("nav" , 1 , TimeUnit.HOURS);
+            redisUtils.setKeyLifeTime("nav" , 3000 , TimeUnit.SECONDS);
 
         }
 
         return ResultUtils.success(list);
+    }
+
+    /**
+     * 移动节点
+     * @param nav
+     * @return
+     */
+    @PostMapping("/move")
+    public Result move(@RequestBody Nav nav){
+
+        nav.setName(nav.getName());
+        nav.setId(nav.getId());
+        nav.setSort(nav.getSort());
+        nav.setUrl(nav.getUrl());
+        nav.setParentId(nav.getParentId());
+        navService.editNav(nav);
+        return ResultUtils.success(nav);
     }
 
     /**

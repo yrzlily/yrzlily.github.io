@@ -39,4 +39,9 @@ spring:
     timeout: 100000
   resources:
     static-locations: classpath:/templates/static
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
 
