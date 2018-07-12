@@ -6,6 +6,7 @@ import com.way.fact.bean.Type;
 import com.way.fact.dao.GoodsDao;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.GoodsService;
+import com.way.fact.service.impl.GoodsServiceImpl;
 import com.way.fact.utils.RedisUtils;
 import com.way.fact.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;

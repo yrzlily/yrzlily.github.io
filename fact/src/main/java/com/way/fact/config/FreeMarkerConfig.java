@@ -3,18 +3,15 @@ package com.way.fact.config;
 import cn.org.rapid_framework.freemarker.directive.BlockDirective;
 import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
-import freemarker.template.TemplateModelException;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-
+import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
  * FreeMarker配置
  * @author Administrator
  */
-@Configuration
+@Component
 public class FreeMarkerConfig {
 
     @Autowired

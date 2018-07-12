@@ -5,6 +5,7 @@ import com.way.fact.bean.Role;
 import com.way.fact.bean.User;
 import com.way.fact.dao.UserDao;
 import com.way.fact.service.UserService;
+import com.way.fact.service.impl.UserServiceImpl;
 import com.way.fact.utils.ResultUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
@@ -13,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class UserController {
      * @return
      */
     @GetMapping(value = {"/index"})
-    public ModelAndView index(ModelAndView view){
+    public ModelAndView index(ModelAndView view , HttpServletRequest request){
         view.setViewName("/user/index");
         return view;
     }

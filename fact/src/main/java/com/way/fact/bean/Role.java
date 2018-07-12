@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,9 +20,22 @@ public class Role implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    @NotEmpty
     private String role;
 
+    @NotEmpty
     private Boolean available = Boolean.FALSE;
+
+    @NotEmpty
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * 用户->角色

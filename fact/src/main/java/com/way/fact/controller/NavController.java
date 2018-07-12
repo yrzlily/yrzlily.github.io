@@ -5,6 +5,7 @@ import com.way.fact.bean.Result;
 import com.way.fact.config.CosConfig;
 import com.way.fact.dao.NavDao;
 import com.way.fact.service.NavService;
+import com.way.fact.service.impl.NavServiceImpl;
 import com.way.fact.utils.FileUtils;
 import com.way.fact.utils.RedisUtils;
 import com.way.fact.utils.ResultUtils;
@@ -16,9 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.beans.IntrospectionException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -151,7 +150,7 @@ public class NavController {
 
             list = navService.findAllByParentId(navDao.findAll() , 0);
             redisUtils.forList("nav" , list);
-            redisUtils.setKeyLifeTime("nav" , 3000 , TimeUnit.SECONDS);
+            redisUtils.setKeyLifeTime("nav" , 30 , TimeUnit.SECONDS);
 
         }
 

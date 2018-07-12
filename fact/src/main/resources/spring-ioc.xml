@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="roleService" class="com.way.fact.service.RoleService"></bean>
+    <bean id="roleService" class="com.way.fact.service.impl.RoleServiceImpl"></bean>
 
     <bean id="roleController" class="com.way.fact.controller.RoleController">
         <constructor-arg name="roleService" ref="roleService"/>
