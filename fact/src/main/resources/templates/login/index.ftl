@@ -64,7 +64,7 @@
                         }).then(function (response) {
                             console.log(response.data);
 
-                            if(response.data.code == 1){
+                            if(response.data.code === 0){
                                 location.href = '/main/index';
                             }
 

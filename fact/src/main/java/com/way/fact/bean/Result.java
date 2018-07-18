@@ -6,12 +6,22 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
+ * 响应信息
  * @author Administrator
  */
 public class Result<T> implements Serializable {
 
+    /**
+     * 返回参数
+     */
     private Integer code;
+    /**
+     * 回调信息
+     */
     private String msg;
+    /**
+     * 回调数据
+     */
     private T data;
 
     public Integer getCode() {

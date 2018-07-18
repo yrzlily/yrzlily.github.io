@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 
@@ -72,7 +73,7 @@ public class NavServiceImpl implements NavService {
 
 
     /**
-     * 递归
+     * 递归父节点寻找子节点
      * @param parentId
      * @return
      */
@@ -89,7 +90,20 @@ public class NavServiceImpl implements NavService {
         return list;
     }
 
+    /**
+     * 递归子节点寻找父节点
+     * @return
+     */
+    @Override
+    public Nav findAllByChild(Nav nav )  {
 
+        Nav parent = null;
+        if(nav.getParentId() != 0){
+            parent = navDao.findById(nav.getParentId()).get();
+            nav.setSelf(parent);
+            findAllByChild(parent);
+        }
 
-
+       return nav;
+    }
 }

@@ -1,10 +1,12 @@
 package com.way.fact.enums;
 
+import lombok.Getter;
+
 /**
  * 用户错误信息
  * @author Administrator
  */
-
+@Getter
 public enum UserEnum {
     //数据为空
     NULL_ERROR(10001 , "数据为空");

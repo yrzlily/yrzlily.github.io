@@ -10,6 +10,12 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserService {
 
+    /**
+     * 分页查找
+     * @param pageable
+     * @param username
+     * @return
+     */
     Page<User> findAll(Pageable pageable, String username);
 
 }

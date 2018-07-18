@@ -1,11 +1,11 @@
 package com.way.fact.bean;
 
 import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,24 +19,33 @@ public class User implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @NotEmpty(message = "用户名不能为空")
+    /**
+     * 用户名称
+     */
+    @NotBlank(message = "用户名不能为空")
     private String username;
 
-    @NotEmpty(message = "密码不能为空")
+    /**
+     * 密码
+     */
+    @NotBlank(message = "密码不能为空")
     private String password;
 
-    @NotEmpty(message = "电话号码不能为空")
+    /**
+     * 电话号码
+     */
+    @NotBlank(message = "电话号码不能为空")
     private String phone;
 
+    /**
+     * 用户头像
+     */
+    private String avatar;
+
+    /**
+     * 用户状态
+     */
     private Long status = 1L;
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     @JsonIgnoreProperties(value = {"userInfo"})
     @ManyToMany(fetch = FetchType.EAGER)
@@ -67,6 +76,22 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public Long getStatus() {
         return status;
     }
@@ -82,5 +107,4 @@ public class User implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
 }

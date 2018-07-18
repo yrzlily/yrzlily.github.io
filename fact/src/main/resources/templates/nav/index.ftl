@@ -13,6 +13,7 @@
                             <el-tree
                                     default-expand-all
                                     draggable
+                                    :highlight-current = true
                                     :data="data"
                                     :props="defaultProps"
                                     :allow-drop="allowDrop"
@@ -244,10 +245,6 @@
 
             },
             handleDrop(draggingNode, dropNode, dropType, ev) {
-                console.log('tree drop: ', draggingNode.label);
-                console.log('tree drop: ', dropNode.label, dropType);
-                console.log(draggingNode.data.id);
-                console.log(dropNode.data.id);
                 var data = {
                     name:draggingNode.data.name,
                     url:draggingNode.data.url,

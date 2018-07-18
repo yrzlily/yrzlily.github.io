@@ -43,13 +43,38 @@ public class RoleController{
     }
 
     /**
-     * 跳转页面
+     * 权限列表视图
      * @param view
      * @return
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
         view.setViewName("/role/index");
+        return view;
+    }
+
+    /**
+     * 添加权限视图
+     * @param view
+     * @return
+     */
+    @GetMapping("/add")
+    public ModelAndView add(ModelAndView view){
+        view.setViewName("/role/add");
+        return view;
+    }
+
+    /**
+     * 编辑权限视图
+     * @param id
+     * @param view
+     * @return
+     */
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable Integer id,ModelAndView view ){
+        Role role = roleDao.getOne(id);
+        view.addObject("role" , role);
+        view.setViewName("/role/edit");
         return view;
     }
 
@@ -61,14 +86,35 @@ public class RoleController{
      */
     @ResponseBody
     @PostMapping("/add")
-    public Result add(@RequestBody @Valid Role role , BindingResult bindingResult){
+    public Result add(@Valid Role role , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(101,bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1002,bindingResult.getFieldError().getDefaultMessage());
         }
 
-        role.setName(role.getRole());
+        role.setName(role.getName());
         role.setAvailable(true);
-        role.setRole(role.getRole());
+        role.setRoles(role.getRoles());
+        roleDao.save(role);
+        return ResultUtils.success(role);
+    }
+
+    /**
+     * 编辑权限
+     * @param role
+     * @param bindingResult
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/edit")
+    public Result edit( @Valid Role role , BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return ResultUtils.error(1002,bindingResult.getFieldError().getDefaultMessage());
+        }
+
+        role.setId(role.getId());
+        role.setName(role.getName());
+        role.setAvailable(role.getAvailable());
+        role.setRoles(role.getRoles());
         roleDao.save(role);
         return ResultUtils.success(role);
     }
@@ -82,7 +128,7 @@ public class RoleController{
     public Object list(@PageableDefault(size = 5)Pageable pageable , Role role){
         pageable = PageRequest.of(pageable.getPageNumber() - 1 , pageable.getPageSize());
         Page<Role> list = roleService.findAll(pageable , role);
-        return ResultUtils.layPage(0,"成功",list.getTotalPages() , list.getContent());
+        return ResultUtils.layPage(list.getTotalPages() , list.getContent());
     }
 
     /**
@@ -93,9 +139,9 @@ public class RoleController{
     @ResponseBody
     @GetMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id){
-        Role role = roleDao.getOne(id);
+
         roleDao.deleteById(id);
-        return ResultUtils.success(role);
+        return ResultUtils.success(id);
     }
 
 }

@@ -19,21 +19,51 @@ public class Nav implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    /**
+     * 导航名称
+     */
     @NotEmpty(message = "名称不能为空")
     private String name;
 
+    /**
+     * 更新时间
+     */
     private Long time;
 
+    /**
+     * 默认排序
+     */
     @ColumnDefault(value = "0")
     @Column(columnDefinition = "INT default 0")
     private Integer sort;
 
+    /**
+     * 父节点
+     */
     @Column(name = "parent_id")
     private Integer parentId;
 
+    /**
+     * 图片
+     */
     private String images;
 
+    /**
+     * 链接
+     */
     private String url;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @Transient
+    private Nav self;
+
+    public Nav getSelf() {
+        return self;
+    }
+
+    public void setSelf(Nav self) {
+        this.self = self;
+    }
 
     public String getUrl() {
         return url;

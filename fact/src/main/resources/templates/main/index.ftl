@@ -21,8 +21,8 @@
     <el-aside class="leftBox">
         <el-row class="tac">
             <el-col :span="24" class="cols">
-                <div class="logo" style="width: 100%; height: 60px; overflow: hidden;">
-
+                <div class="logo" style="width: 100%; height: 60px; overflow: hidden; text-align: center; line-height: 60px; font-size: 30px; color: #fff;">
+                    Fact
                 </div>
                 <el-menu
                         class="menuLeft"
@@ -53,14 +53,14 @@
     <el-main class="main-center">
         <el-header>
             <ul class="layui-nav layui-layout-right" >
+                <#--<li class="layui-nav-item">-->
+                    <#--<a href="">控制台<span class="layui-badge">9</span></a>-->
+                <#--</li>-->
                 <li class="layui-nav-item">
-                    <a href="">控制台<span class="layui-badge">9</span></a>
+                    <a href="/user/logout">退出</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href=""><img src="http://t.cn/RCzsdCq" class="layui-nav-img">${user.username}</a>
+                    <a href=""><img src="${user.avatar}" class="layui-nav-img">${user.username}</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">修改信息</a></dd>
                         <dd><a href="javascript:;">安全管理</a></dd>
@@ -75,6 +75,7 @@
 </@override>
 <@override name="script">
     <script>
+
         var app = new Vue({
             el:"#app",
             data:{
@@ -95,9 +96,17 @@
             methods: {
                 router(data) {
                     this.$refs.windowBox.setAttribute('src', data.route);
+                    localStorage.setItem("src" , data.route);
+                    console.log(localStorage.getItem("src"));
                 }
             }
         });
+
+        var href = localStorage.getItem("src");
+        if(href){
+            app.$refs.windowBox.setAttribute('src', href);
+        }
+
     </script>
 </@override>
 <@extends name="/common/base.ftl" />

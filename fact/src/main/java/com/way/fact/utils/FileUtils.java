@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -18,19 +19,22 @@ public class FileUtils {
 
     public String upload(MultipartFile file , HttpServletRequest request) throws IOException {
 
-        String finType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        UUID uid = UUID.randomUUID();
+        //文件储存路径
+        String uploadDir = request.getSession().getServletContext().getRealPath("/") + "images/upload/";
 
-        File path = new File(request.getSession().getServletContext().getRealPath("/images/upload/") + uid + finType);
-        if(!path.getParentFile().exists()){
-            path.getParentFile().mkdirs();
+        File path = new File(uploadDir);
+        if(!path.exists()){
+            path.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(path);
-        out.write(file.getBytes());
-        out.flush();
-        out.close();
 
-        return "/images/upload/" + path.getName();
+        //重置文件名
+        String finType = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+        UUID uid = UUID.randomUUID();
+        String fileName = uid + finType;
+
+        File saveFile = new File(uploadDir + fileName);
+        file.transferTo(saveFile);
+        return "/images/upload/" + fileName;
     }
 
 }

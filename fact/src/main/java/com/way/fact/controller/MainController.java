@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
  * 后台主页面控制器
  * @author Administrator
  */
-@RequestMapping(value = {"/main" , "/"})
+@RequestMapping(value = {"/main" , "/admin"})
 @Controller
 public class MainController {
 

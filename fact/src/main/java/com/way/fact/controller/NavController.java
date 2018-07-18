@@ -2,6 +2,7 @@ package com.way.fact.controller;
 
 import com.way.fact.bean.Nav;
 import com.way.fact.bean.Result;
+import com.way.fact.bean.Sort;
 import com.way.fact.config.CosConfig;
 import com.way.fact.dao.NavDao;
 import com.way.fact.service.NavService;
@@ -9,6 +10,8 @@ import com.way.fact.service.impl.NavServiceImpl;
 import com.way.fact.utils.FileUtils;
 import com.way.fact.utils.RedisUtils;
 import com.way.fact.utils.ResultUtils;
+import com.way.fact.utils.SortUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +52,7 @@ public class NavController {
      * @param view
      * @return
      */
+    @RequiresRoles("admin")
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
         view.setViewName("/nav/index");
@@ -142,15 +146,14 @@ public class NavController {
         //缓存内容是否为空
         long sizeList = redisUtils.sizeList("nav");
         Object list;
-
         if(sizeList > 0){
 
             list = redisUtils.getList("nav" , 0 , -1);
         }else{
 
-            list = navService.findAllByParentId(navDao.findAll() , 0);
+            list = navService.findAllByParentId(navDao.findAll(SortUtils.basicSort(new Sort("asc","sort"))) , parentID);
             redisUtils.forList("nav" , list);
-            redisUtils.setKeyLifeTime("nav" , 30 , TimeUnit.SECONDS);
+            redisUtils.setKeyLifeTime("nav" , 10 , TimeUnit.SECONDS);
 
         }
 
@@ -191,6 +194,16 @@ public class NavController {
         List<Nav> nav = navDao.findByNameLike("%"+like+"%");
 
         return ResultUtils.success(nav);
+    }
+
+    /**
+     * 寻找父节点
+     */
+    @GetMapping("/child/{id}")
+    public Object child(@PathVariable Integer id)  {
+        Nav nav = navDao.findById(id).get();
+        Object navs = navService.findAllByChild(nav );
+        return ResultUtils.success(navs);
     }
 
 }
