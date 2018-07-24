@@ -1,6 +1,7 @@
 <@override name="title">管理员中心</@override>
 <@override name="head">
 <style>
+
     #content , .tac{height: 100%;}
     .header{padding: 0;}
     .main-header{padding: 0 60px;}

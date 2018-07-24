@@ -17,7 +17,7 @@
     <style>
         .layui-quote-nm{color: #666; background: #fbfbfb;}
         .layui-fluid{margin-top: 10px;}
-        #app{height: 100%;}
+        #app{height: 100%; overflow: auto;}
     </style>
 </head>
 <body>

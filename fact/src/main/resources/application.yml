@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet:
+    session:
+      tracking-modes: COOKIE
 spring:
   freemarker:
     charset: UTF-8
@@ -39,4 +42,7 @@ spring:
     timeout: 100000
   resources:
     static-locations: classpath:/templates/static
+  data:
+    mongodb:
+      uri: mongodb://118.25.91.78:27017/fact
 

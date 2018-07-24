@@ -32,9 +32,9 @@ public class LoginController {
     public Result login(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername() , user.getPassword());
+        token.setRememberMe(true);
         String msg;
         try {
-            token.setRememberMe(true);
             subject.login(token);
             log.info("token = {}" , token);
             return ResultUtils.success(token);

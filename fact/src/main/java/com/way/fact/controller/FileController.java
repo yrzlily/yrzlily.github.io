@@ -12,6 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 文件处理控制器
@@ -33,4 +37,14 @@ public class FileController {
         return ResultUtils.success(url);
     }
 
+    /**
+     * 富文本上传图片
+     */
+    @PostMapping("/artUpload")
+    public Result artUpload(@RequestParam("file") MultipartFile file , HttpServletRequest request) throws IOException {
+        String url = fileUtils.upload(file , request);
+        Map<String , Object> map = new HashMap<>(50);
+        map.put("src" , url);
+        return ResultUtils.success(map);
+    }
 }
