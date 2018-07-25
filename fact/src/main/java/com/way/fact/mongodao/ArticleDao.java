@@ -35,4 +35,17 @@ public interface ArticleDao {
      * @param id
      */
     void delete(String id);
+
+    /**
+     * 文章详情
+     * @param id
+     * @return
+     */
+    Article find(String id);
+
+    /**
+     * 编辑文章
+     * @param article
+     */
+    void edit(Article article);
 }

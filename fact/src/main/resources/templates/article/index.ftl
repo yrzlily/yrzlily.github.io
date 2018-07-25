@@ -41,7 +41,7 @@
                 limitName: 'size'
             }
             ,cols: [[
-                {field: '_id', title: 'ID', width:220, sort: true, fixed: 'left'}
+                {field: 'id', title: 'ID', width:220, sort: true, fixed: 'left'}
                 ,{field: 'title', title: '文章标题', width:150}
                 ,{field: 'by', title: '作者', width:150}
                 ,{field: 'timestamp', title: '更新时间', width:200}
@@ -79,7 +79,7 @@
                     content: '/article/edit/'+data.id,
                     area:['600px' , '400px'],
                     end:function () {
-                        table.reload('user');
+                        table.reload('article');
                     }
                 });
             }

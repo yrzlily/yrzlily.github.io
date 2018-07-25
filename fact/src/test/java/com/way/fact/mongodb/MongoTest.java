@@ -28,7 +28,7 @@ public class MongoTest {
     @Test
     public void find(){
 
-        Article article = mongoTemplate.findOne(new Query(Criteria.where("_id").is("5b5138031e5d7c0b6c1af7ee")) , Article.class);
+        Article article = mongoTemplate.findOne(new Query(Criteria.where("id").is("5b5138031e5d7c0b6c1af7ee")) , Article.class);
 
         assert article != null;
         System.out.println(article.getTitle());
@@ -42,7 +42,7 @@ public class MongoTest {
         List<Article> article = mongoTemplate.findAll(Article.class);
         System.out.println(article);
         for (Article art : article){
-            log.info("_id = {} , title = {} , by = {}" , art.get_id() , art.getTitle() , art.getBy());
+            log.info("_id = {} , title = {} , by = {}" , art.getId() , art.getTitle() , art.getBy());
         }
 
     }
@@ -64,7 +64,7 @@ public class MongoTest {
     @Test
     public void edit(){
         Article article = new Article();
-        article.set_id("5b5138031e5d7c0b6c1af7ee");
+        article.setId("5b5138031e5d7c0b6c1af7ee");
         article.setTitle("fact");
         article.setBy("root");
         mongoTemplate.save(article);

@@ -11,9 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page<Article> list(Pageable pageable, String filter) {
         Query query = new Query();
-        query = query.with(pageable).with(new Sort(Sort.Direction.DESC , "_id"));
+        query = query.with(pageable).with(new Sort(Sort.Direction.DESC , "timestamp"));
 
         Long count = articleDao.count(query);
         List<Article> list = mongoTemplate.find(query , Article.class);

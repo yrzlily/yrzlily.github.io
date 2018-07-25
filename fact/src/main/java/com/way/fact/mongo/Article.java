@@ -1,6 +1,8 @@
 package com.way.fact.mongo;
 
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,7 +21,8 @@ public class Article implements Serializable {
      * ID
      */
     @Id
-    private String _id;
+    @Column(name = "_id")
+    private String id;
 
     /**
      * 标题
