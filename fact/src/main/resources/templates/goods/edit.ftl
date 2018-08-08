@@ -26,7 +26,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">价格</label>
             <div class="layui-input-block">
-                <input type="number" name="price" required value="${goods.price}"  lay-verify="required" placeholder="价格" autocomplete="off" class="layui-input">
+                <input type="text" name="price" required value="${goods.price}"  lay-verify="required|number" placeholder="价格"  class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

@@ -105,7 +105,7 @@
                     shadeClose:true,
                     maxmin:true,
                     area:['600px' , '300px'],
-                    content: '/type/edit/'+data.id+'/pid/'+${pid},
+                    content: '/type/edit/'+data.id,
                     end:function () {
                         table.reload('type');
                     }

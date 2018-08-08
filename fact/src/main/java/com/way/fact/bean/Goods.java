@@ -62,6 +62,10 @@ public class Goods implements Serializable {
      */
     private String status;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cate")
+    private Type type;
+
     /**
      * 产品价格
      */
@@ -159,4 +163,12 @@ public class Goods implements Serializable {
         this.name = name;
     }
 
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 }

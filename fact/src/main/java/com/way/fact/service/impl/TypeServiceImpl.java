@@ -38,6 +38,8 @@ public class TypeServiceImpl implements TypeService {
      */
     @Override
     public Page<Type> findAll(Pageable pageable, String search , Integer pid) {
+
+
         return typeDao.findAll(new Specification<Type>() {
 
             @Override

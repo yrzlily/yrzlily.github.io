@@ -35,6 +35,14 @@
 <script type="text/html" id="images">
     <a class="checkImage" data-src='{{d.images}}' style="cursor: pointer;">点击查看</a>
 </script>
+<#--分类-->
+<script type="text/html" id="cate">
+    {{# if(d.type.typeName){ }}
+    {{d.type.typeName}}
+    {{# }else{ }}
+    无属性
+    {{# } }}
+</script>
 <#--状态-->
 <script type="text/html" id="status">
 
@@ -69,6 +77,7 @@
                 {field: 'id', title: 'ID', width:80, sort: true },
                 {field: 'name', title: '商品名称', width:200},
                 {field: 'images', title: '封面', width:120   , templet: '#images'},
+                {field: 'cate', title: '分类', width:180 , sort: true  , templet: '#cate'},
                 {field: 'num', title: '库存', width:180  },
                 {field: 'price', title: '价格', width:180 , templet: '#price'},
                 {field: 'status', title: '状态', width:150 , templet: '#status'},
