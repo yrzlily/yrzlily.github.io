@@ -128,7 +128,7 @@ public class RoleController{
     public Object list(@PageableDefault(size = 5)Pageable pageable , Role role){
         pageable = PageRequest.of(pageable.getPageNumber() - 1 , pageable.getPageSize());
         Page<Role> list = roleService.findAll(pageable , role);
-        return ResultUtils.layPage(list.getTotalPages() , list.getContent());
+        return ResultUtils.layPage(list.getTotalElements() , list.getContent());
     }
 
     /**

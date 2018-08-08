@@ -69,7 +69,7 @@ public class NavController {
     )  {
 
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(-1,bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1003,bindingResult.getFieldError().getDefaultMessage());
         }
 
 
@@ -93,7 +93,7 @@ public class NavController {
             BindingResult bindingResult
             )  {
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(-1,bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1003,bindingResult.getFieldError().getDefaultMessage());
         }
 
         nav.setImages(nav.getImages());

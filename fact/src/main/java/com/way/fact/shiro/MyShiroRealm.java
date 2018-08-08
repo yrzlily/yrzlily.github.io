@@ -10,6 +10,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,6 @@ public class MyShiroRealm extends AuthorizingRealm {
             return null;
         }
 
-        return new SimpleAuthenticationInfo(user, token.getCredentials() ,this.getName());
+        return new SimpleAuthenticationInfo(user, token.getCredentials() , ByteSource.Util.bytes(user.getPassword()),this.getName());
     }
 }

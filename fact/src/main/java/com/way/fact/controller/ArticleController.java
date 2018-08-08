@@ -42,6 +42,9 @@ public class ArticleController {
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
         view.setViewName("/article/index");
+
+        List<Cate> cate  = cateDao.findAll();
+        view.addObject("cate" , cate);
         return view;
     }
 
@@ -77,19 +80,19 @@ public class ArticleController {
     /**
      * 文章分页列表查询
      * @param pageable
-     * @param filter 过滤信息
+     * @param search 过滤信息
      * @return
      */
     @GetMapping("/list")
     @ResponseBody
-    public Object list(Pageable pageable, @RequestParam(required = false , value = "search") String filter){
+    public Object list(Pageable pageable, @RequestParam(required = false , value = "search") String search , @RequestParam(required = false , value = "cate") Integer cate){
         pageable = PageRequest.of(pageable.getPageNumber() - 1 , pageable.getPageSize());
-        Page<Article> list = articleService.list(pageable , filter);
+        Page<Article> list = articleService.list(pageable , search , cate);
         for (Article article : list){
-            SimpleDateFormat dateFormat = new SimpleDateFormat();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             article.setTimestamp(dateFormat.format(article.getTimestamp()));
         }
-        return ResultUtils.layPage(list.getTotalPages() , list.getContent());
+        return ResultUtils.layPage(list.getTotalElements() , list.getContent());
     }
 
     /**

@@ -39,7 +39,7 @@ public class ResultUtils {
      * @param data
      * @return
      */
-    public static Object layPage( Integer count , Object data){
+    public static Object layPage( Long count , Object data){
         Layer layer = new Layer();
         layer.setCode(ResultEnum.SUCCESS.getCode());
         layer.setMsg(ResultEnum.SUCCESS.getMsg());

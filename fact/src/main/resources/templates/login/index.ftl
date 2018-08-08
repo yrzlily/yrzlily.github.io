@@ -43,8 +43,8 @@
             };
             return {
                 loginForm: {
-                    username: '',
-                    pass: ''
+                    username: 'yrzsss',
+                    pass: '123456'
                 },
                 loginRules: {
                     username: [

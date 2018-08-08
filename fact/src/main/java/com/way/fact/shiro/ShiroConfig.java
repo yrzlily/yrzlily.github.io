@@ -1,5 +1,6 @@
 package com.way.fact.shiro;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -61,7 +62,11 @@ public class ShiroConfig  {
      * @return
      */
     @Bean
-    public MyShiroRealm myShiroRealm(){
+    public MyShiroRealm myShiroRealm()
+    {
+        MyShiroRealm realm = new MyShiroRealm();
+        realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        realm.setCachingEnabled(false);
         return new MyShiroRealm();
     }
 
@@ -100,6 +105,19 @@ public class ShiroConfig  {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * 凭证匹配器
+     * @return
+     */
+    @Bean(name="credentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        hashedCredentialsMatcher.setHashIterations(1);
+        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
+        return hashedCredentialsMatcher;
     }
 
 }

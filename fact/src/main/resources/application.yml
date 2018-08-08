@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
   servlet:
     session:
       tracking-modes: COOKIE
@@ -34,12 +34,10 @@ spring:
     host: 118.25.91.78
     jedis:
       pool:
-        max-wait: -1
         max-active: 8
         max-idle: 8
         min-idle: 0
     database: 0
-    timeout: 100000
   resources:
     static-locations: classpath:/templates/static
   data:

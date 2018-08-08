@@ -20,7 +20,7 @@ public class Layer {
     /**
      * 返回页码
      */
-    private Integer count;
+    private Long count;
     /**
      * 返回数据
      */

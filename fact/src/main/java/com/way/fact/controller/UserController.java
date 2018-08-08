@@ -107,7 +107,7 @@ public class UserController {
         log.info("limit = {}" , pageable);
         Page<User> list = userService.findAll(pageable , username);
 
-        return ResultUtils.layPage( list.getTotalPages() , list.getContent());
+        return ResultUtils.layPage( list.getTotalElements() , list.getContent());
     }
 
 

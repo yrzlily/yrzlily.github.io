@@ -13,9 +13,9 @@ public interface ArticleService {
     /**
      * 分页查询
      * @param pageable
-     * @param filter
+     * @param search
      * @return
      */
-    Page<Article> list(Pageable pageable, String filter);
+    Page<Article> list(Pageable pageable, String search , Integer cate);
 
 }

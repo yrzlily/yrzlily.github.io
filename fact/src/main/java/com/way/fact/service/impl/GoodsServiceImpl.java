@@ -24,13 +24,13 @@ public class GoodsServiceImpl implements GoodsService {
     /**
      * 分页模糊查询
      * @param pageable
-     * @param name
+     * @param search
      * @return
      */
     @Override
     public Page<Goods> findAll(
             Pageable pageable,
-            String name
+            String search
     ){
 
         return goodsDao.findAll(new Specification<Goods>(){
@@ -45,12 +45,12 @@ public class GoodsServiceImpl implements GoodsService {
 
                 List<Predicate> predicate = new ArrayList<>();
                 //名称模糊查询
-                if(name != null){
-                    predicate.add(criteriaBuilder.like(root.get("name").as(String.class),"%"+ name +"%"));
+                if(search != null){
+                    predicate.add(criteriaBuilder.like(root.get("name").as(String.class),"%"+ search +"%"));
                 }
                 Predicate[] predicates = new Predicate[predicate.size()];
                 criteriaQuery.where(criteriaBuilder.and(predicate.toArray(predicates)));
-                criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id").as(Integer.class)));
+                criteriaQuery.orderBy(criteriaBuilder.asc(root.get("sort").as(Integer.class)));
                 criteriaQuery.distinct(true);
                 return criteriaQuery.getRestriction();
             }

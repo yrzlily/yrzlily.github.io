@@ -1,0 +1,60 @@
+Manifest-Version: 1.0
+Class-Path: cxf-rt-core-2.3.1.jar cxf-common-utilities-2.3.1.jar commo
+ ns-pool2-2.5.0.jar serializer-2.7.1.jar hibernate-commons-annotations
+ -5.0.1.Final.jar spring-web-5.0.6.RELEASE.jar HikariCP-2.7.9.jar jack
+ son-datatype-jdk8-2.9.5.jar mysql-connector-java-5.1.46.jar shiro-cry
+ pto-cipher-1.4.0.jar spring-boot-starter-data-jpa-2.0.2.RELEASE.jar s
+ pring-core-5.0.6.RELEASE.jar shiro-config-ogdl-1.4.0.jar cxf-tools-co
+ mmon-2.3.1.jar spring-aop-5.0.6.RELEASE.jar xmlsec-1.4.4.jar dom4j-1.
+ 6.1.jar jedis-2.9.0.jar spring-context-5.0.6.RELEASE.jar hibernate-jp
+ a-2.1-api-1.0.0.Final.jar shiro-web-1.4.0.jar mybatis-spring-1.3.2.ja
+ r shiro-crypto-core-1.4.0.jar bcprov-jdk15-1.45.jar cxf-rt-frontend-s
+ imple-2.3.1.jar javassist-3.22.0-GA.jar jandex-2.0.3.Final.jar slf4j-
+ api-1.7.25.jar pagehelper-spring-boot-starter-1.2.5.jar cxf-rt-ws-add
+ r-2.3.1.jar jackson-module-parameter-names-2.9.5.jar spring-aspects-5
+ .0.6.RELEASE.jar spring-boot-starter-web-2.0.2.RELEASE.jar spring-web
+ mvc-5.0.6.RELEASE.jar wss4j-1.5.10.jar cxf-rt-ws-security-2.3.1.jar s
+ pring-boot-starter-json-2.0.2.RELEASE.jar jul-to-slf4j-1.7.25.jar jac
+ kson-databind-2.9.6.jar mybatis-spring-boot-starter-1.3.2.jar shiro-c
+ rypto-hash-1.4.0.jar javax.annotation-api-1.3.2.jar pagehelper-spring
+ -boot-autoconfigure-1.2.5.jar stax2-api-3.0.2.jar joda-time-2.9.9.jar
+  log4j-1.2.17.jar jackson-datatype-jsr310-2.9.5.jar httpcore-4.4.9.ja
+ r antlr-2.7.7.jar commons-lang-2.6.jar spring-data-redis-2.0.7.RELEAS
+ E.jar tomcat-embed-core-8.5.31.jar cxf-rt-transports-http-2.3.1.jar s
+ hiro-cache-1.4.0.jar spring-jdbc-5.0.6.RELEASE.jar jboss-logging-3.3.
+ 2.Final.jar hibernate-core-5.2.17.Final.jar mybatis-3.4.6.jar spring-
+ oxm-5.0.6.RELEASE.jar mongodb-driver-3.6.3.jar spring-data-commons-2.
+ 0.7.RELEASE.jar cxf-rt-frontend-jaxws-2.3.1.jar mongodb-driver-core-3
+ .6.3.jar spring-expression-5.0.6.RELEASE.jar spring-boot-starter-jdbc
+ -2.0.2.RELEASE.jar pagehelper-5.1.4.jar tomcat-embed-websocket-8.5.31
+ .jar hamcrest-core-1.3.jar tomcat-embed-el-8.5.31.jar commons-collect
+ ions-3.2.2.jar spring-boot-starter-freemarker-2.0.2.RELEASE.jar commo
+ ns-codec-1.11.jar mybatis-spring-boot-autoconfigure-1.3.2.jar shiro-c
+ ore-1.4.0.jar spring-boot-2.0.2.RELEASE.jar aspectjweaver-1.8.13.jar 
+ classmate-1.3.4.jar spring-context-support-5.0.6.RELEASE.jar shiro-la
+ ng-1.4.0.jar cxf-rt-databinding-jaxb-2.3.1.jar spring-data-keyvalue-2
+ .0.7.RELEASE.jar spring-jcl-5.0.6.RELEASE.jar spring-boot-starter-aop
+ -2.0.2.RELEASE.jar cos_api-5.4.4.jar spring-orm-5.0.6.RELEASE.jar asm
+ -3.3.jar spring-boot-starter-2.0.2.RELEASE.jar javax.transaction-api-
+ 1.2.jar slf4j-log4j12-1.7.25.jar log4j-api-2.10.0.jar spring-beans-5.
+ 0.6.RELEASE.jar jsqlparser-1.0.jar xml-resolver-1.2.jar spring-boot-s
+ tarter-tomcat-2.0.2.RELEASE.jar cxf-rt-bindings-soap-2.3.1.jar spring
+ -boot-starter-cache-2.0.2.RELEASE.jar validation-api-2.0.1.Final.jar 
+ spring-boot-devtools-2.0.2.RELEASE.jar commons-beanutils-1.9.3.jar sn
+ akeyaml-1.19.jar hibernate-validator-6.0.9.Final.jar jackson-annotati
+ ons-2.9.0.jar jackson-datatype-hibernate4-2.9.6.jar geronimo-javamail
+ _1.4_spec-1.7.1.jar cxf-common-schemas-2.3.1.jar cxf-api-2.3.1.jar sp
+ ring-data-mongodb-2.0.7.RELEASE.jar activation-1.1.1.jar jackson-core
+ -2.9.5.jar logback-classic-1.2.3.jar woodstox-core-asl-4.0.8.jar free
+ marker-2.3.28.jar bcprov-jdk15on-1.59.jar spring-boot-starter-data-re
+ dis-1.5.2.RELEASE.jar shiro-spring-1.4.0.jar shiro-config-core-1.4.0.
+ jar commons-logging-1.1.1.jar XmlSchema-1.4.7.jar httpclient-4.5.5.ja
+ r cxf-rt-bindings-xml-2.3.1.jar spring-tx-5.0.6.RELEASE.jar spring-bo
+ ot-starter-data-mongodb-2.0.2.RELEASE.jar log4j-to-slf4j-2.10.0.jar j
+ axb-impl-2.1.13.jar logback-core-1.2.3.jar shiro-event-1.4.0.jar bson
+ -3.6.3.jar wsdl4j-1.6.3.jar spring-boot-autoconfigure-2.0.2.RELEASE.j
+ ar neethi-2.0.4.jar lombok-1.18.0.jar spring-boot-starter-logging-2.0
+ .2.RELEASE.jar junit-4.12.jar xalan-2.7.1.jar spring-data-jpa-2.0.7.R
+ ELEASE.jar rapid-core-4.0.5.jar
+Main-Class: com.way.fact.FactApplication
+

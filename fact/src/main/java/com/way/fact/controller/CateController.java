@@ -78,7 +78,7 @@ public class CateController {
     public Object list(@PageableDefault(size = 15)Pageable pageable , Cate cate){
         pageable = PageRequest.of(pageable.getPageNumber() - 1 , pageable.getPageSize());
         Page<Cate> list = cateService.findAll(pageable , cate);
-        return ResultUtils.layPage(list.getTotalPages() , list.getContent());
+        return ResultUtils.layPage(list.getTotalElements() , list.getContent());
     }
 
     /**

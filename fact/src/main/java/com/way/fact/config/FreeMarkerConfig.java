@@ -17,8 +17,13 @@ public class FreeMarkerConfig {
     @Autowired
     private freemarker.template.Configuration configuration;
 
+    /**
+     *
+     * @throws Exception
+     */
     @PostConstruct
     public void setSharedVariable() throws Exception {
+        //模板继承
         configuration.setSharedVariable("block" , new BlockDirective());
         configuration.setSharedVariable("override" , new OverrideDirective());
         configuration.setSharedVariable("extends" , new ExtendsDirective());

@@ -1,8 +1,10 @@
 package com.way.fact.controller;
 
 import com.way.fact.bean.Goods;
+import com.way.fact.bean.GoodsContent;
 import com.way.fact.bean.Result;
 import com.way.fact.bean.Type;
+import com.way.fact.dao.GoodsContentDao;
 import com.way.fact.dao.GoodsDao;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.GoodsService;
@@ -11,11 +13,18 @@ import com.way.fact.utils.RedisUtils;
 import com.way.fact.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +32,7 @@ import java.util.Optional;
  * @author Administrator
  */
 @RequestMapping("/goods")
-@RestController
+@Controller
 public class GoodsController {
 
     @Autowired
@@ -35,18 +44,59 @@ public class GoodsController {
     @Autowired
     private TypeDao typeDao;
 
-    @Autowired
-    private RedisUtils redisUtils;
 
     /**
-     * 获取所有商品
+     * 商品列表
+     * @param view
+     * @return
+     */
+    @GetMapping("/index")
+    public ModelAndView index(ModelAndView view){
+        view.setViewName("/goods/index");
+        return view;
+    }
+
+    /**
+     * 添加商品
+     * @param view
+     * @return
+     */
+    @GetMapping("/add")
+    public ModelAndView add(ModelAndView view){
+        view.setViewName("/goods/add");
+        return view;
+    }
+
+    /**
+     * 编辑商品
+     * @param view
+     * @return
+     */
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable Integer id , ModelAndView view){
+        view.setViewName("/goods/edit");
+
+        Goods goods = goodsDao.findById(id).get();
+
+        view.addObject("goods" , goods);
+        return view;
+    }
+
+
+    /**
+     * 商品分页接口
      * @return
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Result list(){
-        Object goods = goodsDao.findAll();
-        return ResultUtils.success(goods);
+    public Object list(Pageable pageable , @RequestParam(value = "search" , required = false)String search){
+
+        pageable = PageRequest.of(pageable.getPageNumber() -1 , pageable.getPageSize());
+
+        Page<Goods> goods = goodsService.findAll(pageable , search);
+
+
+        return ResultUtils.layPage(goods.getTotalElements() , goods.getContent());
     }
 
     /**
@@ -56,6 +106,7 @@ public class GoodsController {
      * @return
      */
     @PostMapping("/all")
+    @ResponseBody
     public Result index(@PageableDefault(value = 7) Pageable pageable, @RequestParam(value = "name" , required = false) String name){
         Page<Goods> goods = goodsService.findAll(pageable,name);
         return ResultUtils.success(goods);
@@ -67,6 +118,7 @@ public class GoodsController {
      * @return
      */
     @GetMapping("/one/{id}")
+    @ResponseBody
     public Result goods(@PathVariable("id") Integer id){
         Optional<Goods> goods = goodsDao.findById(id);
         return ResultUtils.success(goods);
@@ -78,6 +130,7 @@ public class GoodsController {
      * @return
      */
     @GetMapping("/del/{id}")
+    @ResponseBody
     public Result delete(@PathVariable Integer id){
         goodsDao.deleteById(id);
         return ResultUtils.success(id);
@@ -89,6 +142,7 @@ public class GoodsController {
      * @return
      */
     @GetMapping("/type/{id}")
+    @ResponseBody
     public Result typeGet(@PathVariable Integer id){
         Optional<Type> type = typeDao.findById(id);
 
@@ -102,22 +156,30 @@ public class GoodsController {
      * @return
      */
     @PostMapping("/add")
+    @ResponseBody
     public Result add(
             @Valid Goods goods ,
-            BindingResult bindingResult,
-            @RequestParam(value = "type" , required = false) List<Type> list
+            BindingResult bindingResult ,
+            GoodsContent goodsContent
     ){
         if(goods == null){
             return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
         }
 
         goods.setName(goods.getName());
+        goods.setNum(goods.getNum());
         goods.setSort(goods.getSort());
-
-        //添加分类
-        goods.setTypeList(list);
-
+        goods.setImages(goods.getImages());
+        goods.setPrice(goods.getPrice());
+        goods.setDescription(goods.getDescription());
+        goods.setStatus("0");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        goods.setUpdate_time(timestamp);
+        goodsContent.setContent(goodsContent.getContent());
+        goods.setContent(goodsContent);
         goodsDao.save(goods);
+        System.out.println(goods.getId());
+
         return ResultUtils.success(goods);
     }
 
@@ -128,17 +190,28 @@ public class GoodsController {
      * @return
      */
     @PostMapping("/edit")
-    public Result edit(@Valid Goods goods , BindingResult bindingResult){
+    @ResponseBody
+    public Result edit(Goods goods , BindingResult bindingResult , GoodsContent goodsContent){
 
         if(goods == null){
-            return ResultUtils.error(10002 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
         }
 
         goods.setId(goods.getId());
         goods.setName(goods.getName());
+        goods.setNum(goods.getNum());
         goods.setSort(goods.getSort());
-
+        goods.setImages(goods.getImages());
+        goods.setPrice(goods.getPrice());
+        goods.setDescription(goods.getDescription());
+        goods.setStatus(goods.getStatus());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        goods.setUpdate_time(timestamp);
+        goodsContent.setId(goods.getContent().getId());
+        goodsContent.setContent(goodsContent.getContent());
+        goods.setContent(goodsContent);
         goodsDao.save(goods);
+
         return ResultUtils.success(goods);
     }
 

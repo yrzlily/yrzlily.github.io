@@ -12,6 +12,14 @@
     </div>
     <form class="layui-form layui-inline">
         <div class="layui-inline">
+            <select name="cate" lay-verify="required">
+                <option value="">分类</option>
+                <#list cate as c>
+                <option value="${c.getId()}">${c.getName()}</option>
+                </#list>
+            </select>
+        </div>
+        <div class="layui-inline">
             <input type="text" name="search"  placeholder="请输入名称" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-inline">
@@ -28,7 +36,8 @@
 </script>
 <script>
     layui.use('table', function(){
-        var table = layui.table;
+        var table = layui.table,
+            $ = layui.jquery;
 
         //第一个实例
         var tableIns = table.render({
@@ -64,7 +73,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url:'delete/'+data._id,
+                        url:'delete/'+data.id,
                         type:'get',
                         success:function (data) {
                             console.log(data);
@@ -76,8 +85,9 @@
                 layer.open({
                     type: 2,
                     shadeClose:true,
+                    maxmin:true,
+                    area:['800px' , '600px'],
                     content: '/article/edit/'+data.id,
-                    area:['600px' , '400px'],
                     end:function () {
                         table.reload('article');
                     }
@@ -102,7 +112,8 @@
 
             tableIns.reload({
                 where: {
-                    username: $('[name="search"]').val()
+                    search: $('[name="search"]').val(),
+                    cate: $('[name="cate"]').val()
                 }
             });
 
