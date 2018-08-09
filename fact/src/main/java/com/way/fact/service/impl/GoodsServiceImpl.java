@@ -1,6 +1,6 @@
 package com.way.fact.service.impl;
 
-import com.way.fact.bean.Goods;
+import com.way.fact.bean.goods.Goods;
 import com.way.fact.dao.GoodsDao;
 import com.way.fact.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;

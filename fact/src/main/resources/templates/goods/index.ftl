@@ -55,7 +55,9 @@
 <#--工具栏-->
 <script type="text/html" id="editBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="photo">相册</a>
+    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格属性</a>
+    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格匹配</a>
 </script>
 <script>
     layui.use('table', function(){
@@ -82,7 +84,7 @@
                 {field: 'price', title: '价格', width:180 , templet: '#price'},
                 {field: 'status', title: '状态', width:150 , templet: '#status'},
                 {field: 'update_time', title: '更新时间', width:230  },
-                {fixed: 'right', width:160, align:'center', toolbar: '#editBar'}
+                {fixed: 'right', width:280, align:'center', toolbar: '#editBar'}
             ]]
 
         });

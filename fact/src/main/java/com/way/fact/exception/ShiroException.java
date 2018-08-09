@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Shiro权限异常处理
- * @author Administrator
+ * @author yrz
  */
 public class ShiroException extends UnauthorizedException {
 

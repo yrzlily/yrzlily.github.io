@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 文章持久层
- * @author Administrator
+ * @author yrz
  */
 public interface ArticleDao {
 

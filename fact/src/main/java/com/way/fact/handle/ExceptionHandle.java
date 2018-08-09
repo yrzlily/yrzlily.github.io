@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 /**
  * 统一异常处理
- * @author Administrator
+ * @author yrz
  */
 @ControllerAdvice
 public class ExceptionHandle {

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 权限服务层
- * @author Administrator
+ * @author yrz
  */
 public interface RoleService {
 

@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 /**
  *文章实体
  * mongo
- * @author Administrator
+ * @author yrz
  */
 @Data
 public class Article implements Serializable {

@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * 文章服务层实现类
- * @author Administrator
+ * @author yrz
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {

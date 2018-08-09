@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 /**
- * @author Administrator
+ * @author yrz
  */
 @Repository
 public interface NavDao extends JpaRepository<Nav,Integer> {

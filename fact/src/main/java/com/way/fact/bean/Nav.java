@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Administrator
+ * @author yrz
  */
 @Entity
 public class Nav implements Serializable {

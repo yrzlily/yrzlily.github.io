@@ -15,7 +15,7 @@ import java.util.*;
 
 /**
  * Shiro配置类
- * @author Administrator
+ * @author yrz
  */
 @Configuration
 public class ShiroConfig  {

@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 
 /**
  * 权限管理服务层
- * @author Administrator
+ * @author yrz
  */
 @Service
 public class RoleServiceImpl implements RoleService {

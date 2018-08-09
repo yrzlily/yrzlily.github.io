@@ -1,16 +1,14 @@
 package com.way.fact.dao;
 
-import com.way.fact.bean.Goods;
+import com.way.fact.bean.goods.Goods;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
- * @author Administrator
+ * @author yrz
  */
 @Repository
 public interface GoodsDao extends JpaRepository<Goods ,Integer> {

@@ -1,15 +1,12 @@
 package com.way.fact.controller;
 
-import com.way.fact.bean.Goods;
-import com.way.fact.bean.GoodsContent;
+import com.way.fact.bean.goods.Goods;
+import com.way.fact.bean.goods.GoodsContent;
 import com.way.fact.bean.Result;
-import com.way.fact.bean.Type;
-import com.way.fact.dao.GoodsContentDao;
+import com.way.fact.bean.type.Type;
 import com.way.fact.dao.GoodsDao;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.GoodsService;
-import com.way.fact.service.impl.GoodsServiceImpl;
-import com.way.fact.utils.RedisUtils;
 import com.way.fact.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,13 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Administrator
+ * @author yrz
  */
 @RequestMapping("/goods")
 @Controller
@@ -191,7 +185,7 @@ public class GoodsController {
      */
     @PostMapping("/edit")
     @ResponseBody
-    public Result edit(Goods goods , BindingResult bindingResult , GoodsContent goodsContent){
+    public Result edit(Goods goods , BindingResult bindingResult , GoodsContent goodsContent ){
 
         if(goods == null){
             return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
@@ -206,10 +200,15 @@ public class GoodsController {
         goods.setDescription(goods.getDescription());
         goods.setStatus(goods.getStatus());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        goods.setCats(goods.getCats());
+
         goods.setUpdate_time(timestamp);
         goodsContent.setId(goods.getContent().getId());
         goodsContent.setContent(goodsContent.getContent());
         goods.setContent(goodsContent);
+
+
+
         goodsDao.save(goods);
 
         return ResultUtils.success(goods);

@@ -1,6 +1,6 @@
 package com.way.fact.service;
 
-import com.way.fact.bean.Type;
+import com.way.fact.bean.type.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 分类服务层接口
- * @author Administrator
+ * @author yrz
  */
 public interface TypeService {
 
@@ -28,5 +28,13 @@ public interface TypeService {
      * @return
      */
     Type parent(Integer id);
+
+    /**
+     * 子类递归
+     * @param list
+     * @param parentID
+     * @return
+     */
+    List<Type> child(List<Type> list , Integer parentID);
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 权限
- * @author Administrator
+ * @author yrz
  */
 @Entity
 public class Permission {

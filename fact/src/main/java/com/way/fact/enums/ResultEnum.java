@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * 设置异常返回信息
- * @author Administrator
+ * @author yrz
  */
 @Getter
 public enum ResultEnum {

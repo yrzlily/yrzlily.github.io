@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * 用户错误信息
- * @author Administrator
+ * @author yrz
  */
 @Getter
 public enum UserEnum {

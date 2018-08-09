@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * FreeMarker配置
- * @author Administrator
+ * @author yrz
  */
 @Component
 public class FreeMarkerConfig {

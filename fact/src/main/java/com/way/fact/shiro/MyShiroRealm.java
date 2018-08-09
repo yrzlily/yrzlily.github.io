@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 自定义Realm
- * @author Administrator
+ * @author yrz
  */
 public class MyShiroRealm extends AuthorizingRealm {
 

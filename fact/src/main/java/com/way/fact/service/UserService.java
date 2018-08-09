@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 用户服务层
- * @author Administrator
+ * @author yrz
  */
 public interface UserService {
 

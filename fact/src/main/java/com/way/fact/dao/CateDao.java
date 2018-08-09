@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 分类持久层
- * @author Administrator
+ * @author yrz
  */
 @Repository
 public interface CateDao extends JpaRepository<Cate , Integer> {

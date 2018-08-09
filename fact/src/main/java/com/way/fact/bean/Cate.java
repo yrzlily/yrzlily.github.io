@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 分类实体
- * @author Administrator
+ * @author yrz
  */
 @Entity
 @Data

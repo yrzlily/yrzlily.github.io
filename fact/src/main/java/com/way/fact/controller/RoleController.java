@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 /**
  * 管理权限控制层
- * @author Administrator
+ * @author yrz
  */
 @RequiresRoles("admin")
 @RequestMapping(value = "/role")

@@ -1,15 +1,12 @@
 package com.way.fact.service.impl;
 
-import com.way.fact.bean.Nav;
-import com.way.fact.bean.Type;
-import com.way.fact.bean.User;
+import com.way.fact.bean.type.Type;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,7 +18,7 @@ import java.util.List;
 
 /**
  * 分类逻辑层
- * @author Administrator
+ * @author yrz
  */
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -84,6 +81,30 @@ public class TypeServiceImpl implements TypeService {
             fin = child;
         }else{
             fin = child;
+        }
+
+        return fin;
+    }
+
+    /**
+     * 子类递归
+     * @param list
+     * @param parentID
+     * @return
+     */
+    @Override
+    public List<Type> child(List<Type> list, Integer parentID) {
+
+        List<Type> fin = new ArrayList<>();
+
+        for (Type type:list){
+            if(type.getParentID().equals(parentID)){
+                List<Type> types = typeDao.findByParentID(type.getId());
+                type.setChildren(types);
+                fin.add(type);
+            }
+
+
         }
 
         return fin;

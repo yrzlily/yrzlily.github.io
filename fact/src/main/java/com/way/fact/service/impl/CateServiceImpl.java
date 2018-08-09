@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 
 /**
  * 分类服务实现层
- * @author Administrator
+ * @author yrz
  */
 @Service
 public class CateServiceImpl implements CateService {

@@ -23,6 +23,14 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">商品分类</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="cats" required  lay-verify="required" placeholder="分类"  class="layui-input">
+                <ul style="padding: 1%;" id="typeList"></ul>
+                <div class="layui-form-mid layui-word-aux">（若不操作则默认分类为顶级）</div>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">价格</label>
             <div class="layui-input-block">
                 <input type="number" name="price" required  lay-verify="required" placeholder="价格" autocomplete="off" class="layui-input">
@@ -63,7 +71,9 @@
 </@override>
 <@override name="script">
 <script>
-    layui.use(['form' , 'upload' , 'layedit'], function() {
+    var fin;
+
+    layui.use(['tree' ,'form' , 'upload' , 'layedit'], function() {
         var form = layui.form,
                 layer = layui.layer,
                 upload = layui.upload,
@@ -93,6 +103,31 @@
             }
         });
 
+        $.ajax({
+            url:'/type/tree',
+            type:'post',
+            success:function (data) {
+
+                fin = setTree(data.data);
+
+                console.log(fin);
+
+                layui.tree({
+                    elem: '#typeList' //传入元素选择器
+                    ,nodes: [{
+                        id:0
+                        ,name: '顶部'
+                        ,children: fin
+                    }]
+                    ,click: function(node){
+
+                        $("input[name='cats']").val(node.id);
+                    }
+                });
+
+            }
+        });
+
         form.on('submit(addGoods)', function(data){
             data.field.content = layedit.getContent(textContent);
 
@@ -118,6 +153,19 @@
             });
             return false;
         });
+
+
+        function setTree(obj) {
+            for (var i = 0 ; i < obj.length ; i++){
+                obj[i].name = obj[i].typeName;
+
+                if(obj[i].children){
+                    setTree(obj[i].children)
+                }
+            }
+
+            return obj;
+        }
 
     });
 </script>

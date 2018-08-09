@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 静态资源配置
- * @author Administrator
+ * @author yrz
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

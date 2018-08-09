@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *文章持久层实现类
- * @author Administrator
+ * @author yrz
  */
 @Repository
 public class ArticleDaoImpl implements ArticleDao {

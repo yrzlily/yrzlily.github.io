@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * 配置过滤器
- * @author Administrator
+ * @author yrz
  */
 @Configuration
 public class WebFilter implements Filter {

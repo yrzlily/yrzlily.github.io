@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 分类服务层
- * @author Administrator
+ * @author yrz
  */
 public interface CateService {
 

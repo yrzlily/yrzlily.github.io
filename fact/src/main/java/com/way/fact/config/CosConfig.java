@@ -17,7 +17,7 @@ import java.util.UUID;
 
 /**
  * 腾讯云对象储存配置
- * @author Administrator
+ * @author yrz
  */
 @Configuration
 public class CosConfig {

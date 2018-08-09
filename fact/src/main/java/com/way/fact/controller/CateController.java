@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 /**
  * 分类控制器
- * @author Administrator
+ * @author yrz
  */
 @Controller
 @RequestMapping("/cate")

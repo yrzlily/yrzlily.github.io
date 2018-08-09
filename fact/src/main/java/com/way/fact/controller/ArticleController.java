@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * @author Administrator
+ * @author yrz
  */
 @RequestMapping("/article")
 @Controller

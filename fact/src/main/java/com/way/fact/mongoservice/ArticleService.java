@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 文章服务层接口
- * @author Administrator
+ * @author yrz
  */
 public interface ArticleService {
 

@@ -6,7 +6,7 @@ import com.way.fact.enums.ResultEnum;
 import com.way.fact.enums.UserEnum;
 
 /**
- * @author Administrator
+ * @author yrz
  */
 public class ResultUtils {
 

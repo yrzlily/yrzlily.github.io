@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
- * @author Administrator
+ * @author yrz
  */
 @RequestMapping("/login")
 @Controller
