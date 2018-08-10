@@ -65,6 +65,7 @@ public class Type {
     @JoinColumn(name = "tid")
     private List<TypeAttr> typeAttrs;
 
+
     public Integer getId() {
         return id;
     }

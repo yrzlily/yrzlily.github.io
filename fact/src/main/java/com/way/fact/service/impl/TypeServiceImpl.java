@@ -1,6 +1,8 @@
 package com.way.fact.service.impl;
 
+import com.way.fact.bean.goods.GoodsAttr;
 import com.way.fact.bean.type.Type;
+import com.way.fact.bean.type.TypeAttr;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,10 +105,10 @@ public class TypeServiceImpl implements TypeService {
                 type.setChildren(types);
                 fin.add(type);
             }
-
-
         }
 
         return fin;
     }
+
+
 }

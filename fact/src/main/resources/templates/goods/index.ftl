@@ -56,7 +56,7 @@
 <script type="text/html" id="editBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="photo">相册</a>
-    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格属性</a>
+    <a href="attr/{{d.cats}}/{{d.id}}" class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格属性</a>
     <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格匹配</a>
 </script>
 <script>

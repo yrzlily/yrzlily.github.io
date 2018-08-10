@@ -9,6 +9,7 @@
     <script src="/static/layui/layui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title><@block name="title"></@block></title>
     <@block name="head">

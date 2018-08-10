@@ -1,12 +1,16 @@
 package com.way.fact.controller;
 
 import com.way.fact.bean.goods.Goods;
+import com.way.fact.bean.goods.GoodsAttr;
 import com.way.fact.bean.goods.GoodsContent;
 import com.way.fact.bean.Result;
 import com.way.fact.bean.type.Type;
+import com.way.fact.bean.type.TypeAttr;
+import com.way.fact.dao.GoodAttrDao;
 import com.way.fact.dao.GoodsDao;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.GoodsService;
+import com.way.fact.service.TypeAttrService;
 import com.way.fact.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,6 +44,11 @@ public class GoodsController {
     @Autowired
     private TypeDao typeDao;
 
+    @Autowired
+    private GoodAttrDao goodAttrDao;
+
+    @Autowired
+    private TypeAttrService typeAttrService;
 
     /**
      * 商品列表
@@ -75,6 +86,27 @@ public class GoodsController {
         view.addObject("goods" , goods);
         return view;
     }
+
+    /**
+     * 规格属性视图
+     * @param view
+     * @param cate
+     * @param gid
+     * @return
+     */
+    @RequestMapping("/attr/{cate}/{gid}")
+    public ModelAndView view(ModelAndView view , @PathVariable("cate")Integer cate , @PathVariable("gid")Integer gid){
+
+        Type type = typeDao.findById(cate).get();
+        List<GoodsAttr> goodsAttrList = goodAttrDao.findByGoodsAttrGid(gid);
+
+        view.addObject("typeAttrList" , type.getTypeAttrs());
+        view.addObject("goodsAttrList" , goodsAttrList);
+        view.addObject("gid" , gid);
+        view.setViewName("/goods/attr");
+        return view;
+    }
+
 
 
     /**
@@ -212,6 +244,36 @@ public class GoodsController {
         goodsDao.save(goods);
 
         return ResultUtils.success(goods);
+    }
+
+
+    /**
+     * 更新规格属性
+     * @param goodsAttrs
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/attrSave")
+    public Result attrSave( GoodsAttr goodsAttrs){
+
+        List<GoodsAttr> goodsAttrList = goodsAttrs.getGoodsAttrs();
+
+        for (GoodsAttr goodsAttr:goodsAttrList){
+
+            goodsAttr.setGoodsAttrName(goodsAttr.getGoodsAttrName());
+            goodsAttr.setGoodsAttrGid(goodsAttr.getGoodsAttrGid());
+            goodsAttr.setGoodsAttrPrice(goodsAttr.getGoodsAttrPrice());
+            goodsAttr.setGoodsAttrTid(goodsAttr.getGoodsAttrTid());
+
+            if(goodsAttr.getId() != null){
+                goodsAttr.setId(goodsAttr.getId());
+                System.out.println(goodsAttr.getGoodsAttrName());
+            }
+
+            goodAttrDao.save(goodsAttr);
+        }
+
+        return ResultUtils.success(goodsAttrs);
     }
 
 }

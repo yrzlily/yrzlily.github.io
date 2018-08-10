@@ -5,6 +5,7 @@ import com.way.fact.bean.type.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author yrz
@@ -71,11 +72,18 @@ public class Goods implements Serializable {
     /**
      * 产品价格
      */
-    private Double price;
+    private String price;
 
+    /**
+     * 产品详情
+     */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "content_id")
     private GoodsContent content;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "goodsAttrGid")
+    private List<GoodsAttr> goodsAttrList;
 
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
 //    @JsonIgnoreProperties("goodsList")
@@ -116,11 +124,11 @@ public class Goods implements Serializable {
     }
 
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -171,6 +179,14 @@ public class Goods implements Serializable {
 
     public void setCats(Integer cats) {
         this.cats = cats;
+    }
+
+    public List<GoodsAttr> getGoodsAttrList() {
+        return goodsAttrList;
+    }
+
+    public void setGoodsAttrList(List<GoodsAttr> goodsAttrList) {
+        this.goodsAttrList = goodsAttrList;
     }
 
     public Type getType() {

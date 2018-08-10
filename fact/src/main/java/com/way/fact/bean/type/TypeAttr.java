@@ -1,9 +1,9 @@
 package com.way.fact.bean.type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.way.fact.bean.goods.GoodsAttr;
+
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 商品规格属性
@@ -37,6 +37,9 @@ public class TypeAttr {
      * 分类规格排序
      */
     private Integer sort;
+
+    @Transient
+    private List<GoodsAttr> goodsAttrList;
 
     public Integer getId() {
         return id;
@@ -76,5 +79,13 @@ public class TypeAttr {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public List<GoodsAttr> getGoodsAttrList() {
+        return goodsAttrList;
+    }
+
+    public void setGoodsAttrList(List<GoodsAttr> goodsAttrList) {
+        this.goodsAttrList = goodsAttrList;
     }
 }

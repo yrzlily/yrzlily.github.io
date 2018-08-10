@@ -1,5 +1,6 @@
 package com.way.fact.service.impl;
 
+import com.way.fact.bean.goods.GoodsAttr;
 import com.way.fact.bean.type.TypeAttr;
 import com.way.fact.dao.TypeAttrDao;
 import com.way.fact.service.TypeAttrService;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 分类属性服务层
@@ -53,5 +55,27 @@ public class TypeAttrServiceImpl implements TypeAttrService {
                 return criteriaQuery.getRestriction();
             }
         } , pageable);
+    }
+
+    /**
+     * 相关产品对应规格
+     * @param typeAttrList
+     * @param goodsAttrList
+     * @return
+     */
+    @Override
+    public List<TypeAttr> findSpecifications(List<TypeAttr> typeAttrList, List<GoodsAttr> goodsAttrList) {
+
+
+        for (TypeAttr typeAttr: typeAttrList){
+            for (int i = 0; i< goodsAttrList.size() ; i++){
+                if(!goodsAttrList.get(i).getGoodsAttrTid().equals(typeAttr.getId())){
+                    goodsAttrList.remove(goodsAttrList.get(i));
+                }
+            }
+            typeAttr.setGoodsAttrList(goodsAttrList);
+        }
+
+        return typeAttrList;
     }
 }

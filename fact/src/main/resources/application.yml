@@ -26,7 +26,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: true
   redis:
     port: 6379

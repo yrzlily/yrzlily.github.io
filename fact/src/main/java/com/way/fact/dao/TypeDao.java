@@ -45,4 +45,13 @@ public interface TypeDao extends JpaRepository<Type,Integer> {
      * @return
      */
     Integer countByParentID(Integer id);
+
+
+    /**
+     * 过滤寻找
+     * @param cid
+     * @return
+     */
+    @Query("select tp.id , ta from Type tp join tp.typeAttrs ta where tp.id=?1 ")
+    List<Object[]> findAttr(Integer cid);
 }

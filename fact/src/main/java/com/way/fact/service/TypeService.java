@@ -1,6 +1,8 @@
 package com.way.fact.service;
 
+import com.way.fact.bean.goods.GoodsAttr;
 import com.way.fact.bean.type.Type;
+import com.way.fact.bean.type.TypeAttr;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -36,5 +38,7 @@ public interface TypeService {
      * @return
      */
     List<Type> child(List<Type> list , Integer parentID);
+
+
 
 }
