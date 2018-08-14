@@ -1,5 +1,9 @@
 <@override name="title">管理员中心</@override>
 <@override name="head">
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <style>
 
     #content , .tac{height: 100%;}
@@ -98,7 +102,6 @@
                 router(data) {
                     this.$refs.windowBox.setAttribute('src', data.route);
                     localStorage.setItem("src" , data.route);
-                    console.log(localStorage.getItem("src"));
                 }
             }
         });

@@ -4,8 +4,8 @@
 </@override>
 <@override name="app">
 <div class="layui-fluid">
-    <a href="/goods/index" class="layui-btn">返回上级</a>
-    <form class="layui-form" id="form">
+    <a href="JavaScript:history.go(-1)" class="layui-btn">返回上级</a>
+    <form class="layui-form" id="form" lay-filter="attrBar">
         <table class="layui-table">
             <colgroup>
                 <col width="150">
@@ -19,14 +19,14 @@
                 <th>价格</th>
                 <th>
                     <label style="float: left;">操作</label>
-                    <button type="button" onclick="cloneBar(${gid} , ${typeAttr.id} , 'good_${typeAttr_index}')" style="float: right; height: 20px;" class="layui-btn layui-btn-xs">添加</button>
+                    <button type="button" data-gid="${gid}" data-tid="${typeAttr.id}" data-obj="good_${typeAttr_index}" style="float: right; height: 20px;" class="layui-btn layui-btn-xs addBar">添加</button>
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="good_${typeAttr_index}">
             <#list goodsAttrList as goodAttr>
                 <#if typeAttr.id == goodAttr.goodsAttrTid >
-                    <tr class="good_${typeAttr_index}">
+                    <tr class="goodLength">
                         <td>
                             <input type="hidden" name="goodsAttrs[${x}].id" value="${goodAttr.id}" />
                             <input type="hidden" title="goodsAttrTid" value="${typeAttr.id}" name="goodsAttrs[${x}].goodsAttrTid">
@@ -35,7 +35,7 @@
                         </td>
                         <td><input type="text" required lay-verify="required|number" value="${goodAttr.goodsAttrPrice}" name="goodsAttrs[${x}].goodsAttrPrice" class="layui-input" title=""></td>
                         <td>
-                            <button data-id="${goodAttr.id}" class="layui-btn layui-btn-danger">删除</button>
+                            <button data-id="${goodAttr.id}" type="button" class="layui-btn layui-btn-danger delete">删除</button>
                         </td>
                     </tr>
                     <#assign x = x +1 />
@@ -52,7 +52,7 @@
 </@override>
 <@override name="script">
 <script type="text/html" id="textBox">
-    <tr class="[class]">
+    <tr class="goodLength">
         <td>
             <input type="hidden" title="goodsAttrTid" class="goodsAttrTid" value="[tid]" name="goodsAttrs[[size]].goodsAttrTid">
             <input type="hidden" title="goodsAttrGid" class="goodsAttrGid" value="[gid]" name="goodsAttrs[[size]].goodsAttrGid">
@@ -60,7 +60,7 @@
         </td>
         <td><input type="text" required lay-verify="required|number" value="" name="goodsAttrs[[size]].goodsAttrPrice" class="layui-input" title=""></td>
         <td>
-            <button data-id="" class="layui-btn layui-btn-danger">删除</button>
+            <button data-id="" type="button" class="layui-btn layui-btn-danger delete">删除</button>
         </td>
     </tr>
 </script>
@@ -70,6 +70,7 @@
             $ = layui.jquery;
 
         form.on('submit(save)', function(data){
+
             $.ajax({
                 url:"/goods/attrSave",
                 dataType : 'json',
@@ -93,24 +94,68 @@
             });
             return false;
         });
+
+        $(document).on('click' , '.addBar' , function () {
+
+            var gid = $(this).data('gid'),
+                    tid = $(this).data('tid'),
+                    obj = '.' + $(this).data('obj'),
+                     box = $(obj),
+                    mark = $(this).data('obj'),
+                     html = $('#textBox').html();
+
+
+            var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+            var source = html.replace(reg , function (node, key) {
+                return {
+                    'size': $(obj).parents('table').find('.goodLength').length,
+                    'gid': gid ,
+                    'tid': tid
+                }[key];
+            });
+            box.append($(source));
+            form.render();
+
+        }).on('click' , '.delete'  ,function () {
+            var id = $(this).data('id');
+
+            if(id!=''){
+
+                layer.confirm('是否删除该属性', {icon: 3, title:'删除'}, function(index){
+                    //do something
+                    $.ajax({
+                        url:'/goods/attrDel/'+id,
+                        type:'Post',
+                        success:function (data) {
+                            if(data.code === 0){
+                                layer.msg(data.msg , {
+                                    icon:1,
+                                    end:function (data) {
+                                        location.reload();
+                                    }
+                                });
+                            }else{
+                                layer.msg(data.msg, {
+                                    icon:2
+                                });
+                            }
+                        }
+                    });
+                    layer.close(index);
+                });
+
+
+
+            }else{
+                $(this).parents("tr").remove();
+            }
+
+        });
+
     });
 
-    function cloneBar(gid , tid , obj) {
-        var dom = "."+obj;
-        var box = $(dom).parent();
-        var html = $('#textBox').html();
 
-        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-        var source = html.replace(reg , function (node, key) {
-            return {
-                'size': $(dom).length,
-                'class': obj,
-                'gid': gid ,
-                'tid': tid
-            }[key];
-        });
-        box.append($(source));
-    }
+
 </script>
 </@override>
 <@extends name="/common/base.ftl" />

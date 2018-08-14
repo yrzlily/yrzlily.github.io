@@ -1,6 +1,9 @@
 <@override name="title">导航设置</@override>
 <@override name="head">
-
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </@override>
 <@override name="app">
 <el-container>

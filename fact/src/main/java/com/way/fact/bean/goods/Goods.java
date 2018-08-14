@@ -81,8 +81,8 @@ public class Goods implements Serializable {
     @JoinColumn(name = "content_id")
     private GoodsContent content;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "goodsAttrGid")
+    @OneToMany(cascade = CascadeType.MERGE , fetch = FetchType.LAZY )
+    @JoinColumn(name = "goodsAttrGid" , insertable = false , updatable = false)
     private List<GoodsAttr> goodsAttrList;
 
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)

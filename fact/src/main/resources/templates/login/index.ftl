@@ -1,5 +1,9 @@
 <@override name="title">管理员登录</@override>
 <@override name="head">
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <style>
         html , body{padding: 0; margin: 0; height: 100%;}
         .login_box{width: 600px; margin: 0 auto; margin-top: 10%; box-shadow: 0 0 5px #cccccc; text-align: center;}

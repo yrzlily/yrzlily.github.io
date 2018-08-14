@@ -57,7 +57,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="photo">相册</a>
     <a href="attr/{{d.cats}}/{{d.id}}" class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格属性</a>
-    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="photo">规格匹配</a>
+    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="specifications">规格匹配</a>
 </script>
 <script>
     layui.use('table', function(){
@@ -111,13 +111,23 @@
                     });
                 });
             } else if(layEvent === 'edit'){ //编辑
-                //do something
                 layer.open({
                     type: 2,
                     shadeClose:true,
                     maxmin:true,
                     area:['800px' , '600px'],
                     content: '/goods/edit/'+data.id,
+                    end:function () {
+                        table.reload('goods');
+                    }
+                });
+            } else if(layEvent === 'specifications'){
+                layer.open({
+                    type: 2,
+                    shadeClose:true,
+                    maxmin:true,
+                    area:['800px' , '600px'],
+                    content: '/goods/specifications/'+data.cats+'/'+data.id,
                     end:function () {
                         table.reload('goods');
                     }

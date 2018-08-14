@@ -58,7 +58,16 @@ public class LoginController {
      */
     @RequestMapping("/index")
     public ModelAndView index(ModelAndView view){
-        view.setViewName("/login/index");
+
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+
+        if(user==null){
+            view.setViewName("/login/index");
+        }else{
+            view.setViewName("/admin");
+        }
+
+
         return view;
     }
 

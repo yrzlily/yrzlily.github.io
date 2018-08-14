@@ -4,14 +4,19 @@ import com.way.fact.bean.goods.Goods;
 import com.way.fact.bean.goods.GoodsAttr;
 import com.way.fact.bean.goods.GoodsContent;
 import com.way.fact.bean.Result;
+import com.way.fact.bean.goods.GoodsSpec;
 import com.way.fact.bean.type.Type;
 import com.way.fact.bean.type.TypeAttr;
 import com.way.fact.dao.GoodAttrDao;
 import com.way.fact.dao.GoodsDao;
+import com.way.fact.dao.GoodsSpecDao;
 import com.way.fact.dao.TypeDao;
 import com.way.fact.service.GoodsService;
 import com.way.fact.service.TypeAttrService;
+import com.way.fact.utils.JsonListUtil;
 import com.way.fact.utils.ResultUtils;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,6 +54,9 @@ public class GoodsController {
 
     @Autowired
     private TypeAttrService typeAttrService;
+
+    @Autowired
+    private GoodsSpecDao goodsSpecDao;
 
     /**
      * 商品列表
@@ -100,6 +108,15 @@ public class GoodsController {
         Type type = typeDao.findById(cate).get();
         List<GoodsAttr> goodsAttrList = goodAttrDao.findByGoodsAttrGid(gid);
 
+        for (GoodsAttr goodsAttr : goodsAttrList){
+            System.out.println(goodsAttr.getGoodsAttrName());
+        }
+
+        System.out.println(type.getTypeName());
+        for (TypeAttr typeAttr : type.getTypeAttrs()){
+            System.out.println(typeAttr.getTypeAttributesName());
+        }
+
         view.addObject("typeAttrList" , type.getTypeAttrs());
         view.addObject("goodsAttrList" , goodsAttrList);
         view.addObject("gid" , gid);
@@ -107,6 +124,31 @@ public class GoodsController {
         return view;
     }
 
+    @GetMapping("/specifications/{cate}/{gid}")
+    public ModelAndView specifications(ModelAndView view , @PathVariable("cate")Integer cate , @PathVariable("gid")Integer gid){
+
+        Type type = typeDao.findById(cate).get();
+        List<GoodsAttr> goodsAttrList = goodAttrDao.findByGoodsAttrGid(gid);
+
+        List<GoodsSpec> goodsSpec = goodsSpecDao.findAllByGid(gid);
+
+
+        for (GoodsSpec g : goodsSpec){
+            g.setList(JsonListUtil.jsonToList(g.getSpec() , Integer.class));
+
+            List<GoodsAttr> goodsAttrs = goodAttrDao.findAllByList(g.getList());
+            g.setGoodsAttrs(goodsAttrs);
+        }
+
+
+        view.addObject("typeAttrList" , type.getTypeAttrs());
+        view.addObject("goodsSpec" , goodsSpec);
+        view.addObject("goodsAttrList" , goodsAttrList);
+        view.addObject("gid" , gid);
+
+        view.setViewName("/goods/specifications");
+        return view;
+    }
 
 
     /**
@@ -239,8 +281,6 @@ public class GoodsController {
         goodsContent.setContent(goodsContent.getContent());
         goods.setContent(goodsContent);
 
-
-
         goodsDao.save(goods);
 
         return ResultUtils.success(goods);
@@ -274,6 +314,66 @@ public class GoodsController {
         }
 
         return ResultUtils.success(goodsAttrs);
+    }
+
+    /**
+     * 删除属性
+     * @param id
+     * @return
+     */
+    @PostMapping("/attrDel/{id}")
+    @ResponseBody
+    public Result attrDel(@PathVariable("id")Integer id){
+        goodAttrDao.deleteById(id);
+        return ResultUtils.success(id);
+    }
+
+    /**
+     * 储存规格
+     * @param goodsSpec
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/addSpec")
+    public Result addSpec(@Valid GoodsSpec goodsSpec ){
+
+
+        String json = JSONArray.fromObject(goodsSpec.getList()).toString();
+
+        goodsSpec.setGid(goodsSpec.getGid());
+        goodsSpec.setSpec(json);
+        goodsSpec.setNum(goodsSpec.getNum());
+
+        goodsSpecDao.save(goodsSpec);
+
+        return ResultUtils.success(goodsSpec);
+    }
+
+    /**
+     * 修改库存
+     * @param id
+     * @param num
+     * @return
+     */
+    @PostMapping("/editSpec")
+    @ResponseBody
+    public Result editSpec(@RequestParam("id") Integer id , @RequestParam("num")Integer num){
+
+        goodsSpecDao.updateNum(id , num);
+        return ResultUtils.success(num);
+    }
+
+    /**
+     * 删除匹配
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/delSpec/{id}")
+    public Result delSpec(@PathVariable("id")Integer id){
+        goodsSpecDao.deleteById(id);
+
+        return ResultUtils.success(id);
     }
 
 }

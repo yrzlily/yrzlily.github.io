@@ -61,8 +61,8 @@ public class Type {
 //    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "typeList")
 //    private List<Goods> goodsList;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "tid")
+    @OneToMany(cascade = CascadeType.MERGE , fetch = FetchType.LAZY)
+    @JoinColumn(name = "tid" , insertable = false , updatable = false)
     private List<TypeAttr> typeAttrs;
 
 

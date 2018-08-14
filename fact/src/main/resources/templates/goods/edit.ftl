@@ -1,4 +1,4 @@
-<@override name="title">添加商品</@override>
+<@override name="title">修改商品</@override>
 <@override name="head">
 <style>
 
