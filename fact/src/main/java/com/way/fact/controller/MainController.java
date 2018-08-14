@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RequestMapping(value = {"/main" , "/admin"})
 @Controller
-//@RequiresRoles("admin")
+@RequiresRoles("admin")
 public class MainController {
 
     /**

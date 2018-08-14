@@ -37,6 +37,7 @@ public class ShiroConfig  {
         //免权限路劲
         filterChainDefinitionMap.put("/nav","anon");
         filterChainDefinitionMap.put("/login/**","anon");
+        filterChainDefinitionMap.put("/product","anon");
 
         //登出路劲
         filterChainDefinitionMap.put("/user/logout","logout");

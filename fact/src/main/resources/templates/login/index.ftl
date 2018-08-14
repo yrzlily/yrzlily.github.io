@@ -51,12 +51,12 @@
                     pass: '123456'
                 },
                 loginRules: {
-                    username: [
-                        { validator: validateUsername, trigger: 'blur' }
-                    ],
-                    pass: [
-                        { validator: validatePass, trigger: 'blur' }
-                    ]
+                    // username: [
+                    //     { validator: validateUsername, trigger: 'blur' }
+                    // ],
+                    // pass: [
+                    //     { validator: validatePass, trigger: 'blur' }
+                    // ]
                 }
             };
         },
@@ -69,17 +69,20 @@
                             username:that.loginForm.username,
                             password:that.loginForm.pass
                         }).then(function (response) {
-                            console.log(response.data);
 
                             if(response.data.code === 0){
                                 location.href = '/main/index';
+                            }else{
+                                that.$message({
+                                    type: 'error',
+                                    message: response.data.msg
+                                });
                             }
 
                         }).catch(function (error) {
 
                         });
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

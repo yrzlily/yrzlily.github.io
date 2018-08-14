@@ -12,11 +12,6 @@
     </div>
     <form class="layui-form layui-inline">
         <div class="layui-inline">
-            <select name="cate" lay-verify="required">
-                <option value="">分类</option>
-            </select>
-        </div>
-        <div class="layui-inline">
             <input type="text" name="search"  placeholder="请输入名称" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-inline">
