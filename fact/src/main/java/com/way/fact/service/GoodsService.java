@@ -12,9 +12,9 @@ public interface GoodsService {
 
     /**
      * 分页查找
-     * @param pageable
-     * @param name
-     * @return
+     * @param pageable 分页信息
+     * @param name 查询条件
+     * @return 分页结果
      */
     Page<Goods> findAll(Pageable pageable, String name);
 

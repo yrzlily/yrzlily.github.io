@@ -14,17 +14,17 @@ public interface TypeAttrService {
 
     /**
      * 属性分页查询
-     * @param pageable
-     * @param tid
-     * @return
+     * @param pageable 分页信息
+     * @param tid 分类id
+     * @return 分类信息
      */
     Page<TypeAttr> findAll(Pageable pageable , Integer tid);
 
     /**
      * 寻找相关产品对应规格
-     * @param typeAttrList
-     * @param goodsAttrList
-     * @return
+     * @param typeAttrList 规格属性列表
+     * @param goodsAttrList 商品属性列表
+     * @return 搜索结果
      */
     List<TypeAttr> findSpecifications(List<TypeAttr> typeAttrList , List<GoodsAttr> goodsAttrList);
 }

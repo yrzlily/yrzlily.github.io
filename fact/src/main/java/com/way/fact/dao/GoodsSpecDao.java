@@ -18,17 +18,17 @@ public interface GoodsSpecDao extends JpaRepository<GoodsSpec , Integer> {
 
     /**
      * 通过商品寻找
-     * @param gid
-     * @return
+     * @param gid 商品id
+     * @return 匹配规格
      */
     List<GoodsSpec> findAllByGid(Integer gid);
 
     /**
      * 修改库存
-     * @param id
-     * @param num
+     * @param id 规格id
+     * @param num 库存
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query("update GoodsSpec gs set gs.num = ?2 where gs.id = ?1")
     void updateNum(Integer id , Integer num);

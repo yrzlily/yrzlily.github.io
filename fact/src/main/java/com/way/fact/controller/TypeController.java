@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -45,9 +45,9 @@ public class TypeController {
     private TypeAttrService typeAttrService;
 
     /**
-     * 分类列表视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 分类列表视图
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view , @RequestParam(value = "pid" ,required = false, defaultValue = "0")Integer pid){
@@ -61,9 +61,9 @@ public class TypeController {
     }
 
     /**
-     * 添加视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 添加视图
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view , @RequestParam(value = "pid" ,  defaultValue = "0")Integer pid){
@@ -73,9 +73,9 @@ public class TypeController {
     }
 
     /**
-     * 编辑视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 编辑视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(ModelAndView view , @PathVariable("id")Integer id){
@@ -86,10 +86,10 @@ public class TypeController {
     }
 
     /**
-     * 规格列表视图
-     * @param view
-     * @param tid
-     * @return
+     *
+     * @param view 视图
+     * @param tid 分类id
+     * @return 规格列表视图
      */
     @GetMapping("/attributes/{tid}")
     public ModelAndView attributes(ModelAndView view , @PathVariable("tid")Integer tid){
@@ -101,10 +101,10 @@ public class TypeController {
     }
 
     /**
-     * 添加属性视图
-     * @param view
-     * @param tid
-     * @return
+     *
+     * @param view 视图
+     * @param tid 分类id
+     * @return 添加属性视图
      */
     @GetMapping("/attrAdd")
     public ModelAndView attrAdd(ModelAndView view , @RequestParam("tid")Integer tid){
@@ -114,6 +114,12 @@ public class TypeController {
         return view;
     }
 
+    /**
+     *
+     * @param view 视图
+     * @param id 属性id
+     * @return 编辑属性视图
+     */
     @GetMapping("/attrEdit/{id}")
     public ModelAndView attrEdit(ModelAndView view , @PathVariable("id") Integer id){
 
@@ -124,10 +130,10 @@ public class TypeController {
     }
 
     /**
-     * 相应分页列表
-     * @param pageable
-     * @param search
-     * @return
+     *
+     * @param pageable 分页信息
+     * @param search 搜索条件
+     * @return 相应分页列表
      */
     @ResponseBody
     @RequestMapping("/list")
@@ -146,8 +152,8 @@ public class TypeController {
     }
 
     /**
-     * 递归子类
-     * @return
+     *
+     * @return 递归子类
      */
     @ResponseBody
     @PostMapping("/tree")
@@ -158,16 +164,16 @@ public class TypeController {
     }
 
     /**
-     * 添加分类
-     * @param type
-     * @param bindingResult
-     * @return
+     *
+     * @param type 分类实体
+     * @param bindingResult 错误信息
+     * @return 添加分类
      */
     @PostMapping("/add")
     @ResponseBody
     public Result add(@Valid Type type , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(10005 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10005 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         type.setTypeName(type.getTypeName());
@@ -179,9 +185,9 @@ public class TypeController {
     }
 
     /**
-     * 删除分类
-     * @param id
-     * @return
+     *
+     * @param id 分类id
+     * @return 删除分类
      */
     @PostMapping("/del/{id}")
     @ResponseBody
@@ -198,16 +204,16 @@ public class TypeController {
     }
 
     /**
-     * 编辑分类
-     * @param type
-     * @param bindingResult
-     * @return
+     *
+     * @param type 分类实体
+     * @param bindingResult 错误信息
+     * @return 编辑分类
      */
     @PostMapping("/edit")
     @ResponseBody
     public Result edit(@Valid Type type , BindingResult bindingResult ){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(10005 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10005 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         type.setId(type.getId());
@@ -220,10 +226,10 @@ public class TypeController {
     }
 
     /**
-     * 属性列表
-     * @param tid
-     * @param pageable
-     * @return
+     *
+     * @param tid 分类id
+     * @param pageable 分页信息
+     * @return 属性列表
      */
     @ResponseBody
     @RequestMapping("/attributesList/{tid}")
@@ -245,16 +251,16 @@ public class TypeController {
     }
 
     /**
-     * 添加属性
-     * @param typeAttr
-     * @param bindingResult
-     * @return
+     *
+     * @param typeAttr 属性实体
+     * @param bindingResult 错误信息
+     * @return 添加属性
      */
     @ResponseBody
     @PostMapping("/attrAdd")
     public Result attrAdd(@Valid TypeAttr typeAttr , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(10005 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10005 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         typeAttr.setTypeAttributesName(typeAttr.getTypeAttributesName());
@@ -267,16 +273,16 @@ public class TypeController {
     }
 
     /**
-     * 编辑属性
-     * @param typeAttr
-     * @param bindingResult
-     * @return
+     *
+     * @param typeAttr 属性实体
+     * @param bindingResult 错误信息
+     * @return  编辑属性
      */
     @ResponseBody
     @PostMapping("/attrEdit")
     public Result attrEdit(@Valid TypeAttr typeAttr , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(10005 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10005 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         typeAttr.setId(typeAttr.getId());
@@ -290,9 +296,9 @@ public class TypeController {
     }
 
     /**
-     * 删除属性
-     * @param id
-     * @return
+     *
+     * @param id 属性ID
+     * @return 删除属性
      */
     @ResponseBody
     @GetMapping("/attrDel/{id}")

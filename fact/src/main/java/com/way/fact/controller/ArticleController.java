@@ -14,7 +14,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -36,8 +35,7 @@ public class ArticleController {
     private CateDao cateDao;
 
     /**
-     * 全部文章列表
-     * @return
+     * @return 全部文章列表
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
@@ -49,9 +47,9 @@ public class ArticleController {
     }
 
     /**
-     * 添加文章视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 添加文章视图
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view){
@@ -63,9 +61,8 @@ public class ArticleController {
     }
 
     /**
-     * 编辑文章视图
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 编辑文章视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable String id , ModelAndView view){
@@ -78,10 +75,9 @@ public class ArticleController {
     }
 
     /**
-     * 文章分页列表查询
-     * @param pageable
+     * @param pageable 分页信息
      * @param search 过滤信息
-     * @return
+     * @return 文章分页列表查询
      */
     @GetMapping("/list")
     @ResponseBody
@@ -97,9 +93,8 @@ public class ArticleController {
 
     /**
      * 添加文章
-     * @param article
-     * @return
-     * @throws IOException
+     * @param article 文章信息实体
+     * @return 文章分页
      */
     @PostMapping("/add")
     @ResponseBody
@@ -120,9 +115,8 @@ public class ArticleController {
     }
 
     /**
-     * 删除文章
-     * @param id
-     * @return
+     * @param id 文章id
+     * @return 删除文章
      */
     @GetMapping("/delete/{id}")
     @ResponseBody
@@ -132,10 +126,8 @@ public class ArticleController {
     }
 
     /**
-     * 编辑文章
-     * @param article
-     * @return
-     * @throws IOException
+     * @param article 文章实体
+     * @return 修改文章
      */
     @ResponseBody
     @PostMapping("/edit")

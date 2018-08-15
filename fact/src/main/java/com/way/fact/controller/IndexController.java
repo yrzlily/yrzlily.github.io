@@ -4,13 +4,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 订单管理
+ * 前端页面
  * @author yrz
  */
 @RestController
-@RequestMapping("/order")
-public class OrderController {
+@RequestMapping(value = {"/" , "/index"})
+public class IndexController {
 
+    @RequestMapping(value = {"/index" , ""})
+    public String index(){
 
+        return "index";
+    }
 
 }

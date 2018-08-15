@@ -23,9 +23,9 @@ import java.sql.SQLException;
 public class ExceptionHandle {
 
     /**
-     * 抛出异常信息
-     * @param e
-     * @return
+     * 异常处理
+     * @param e 异常
+     * @return 异常详情
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody

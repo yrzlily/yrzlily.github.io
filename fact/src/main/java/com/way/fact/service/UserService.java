@@ -12,9 +12,9 @@ public interface UserService {
 
     /**
      * 分页查找
-     * @param pageable
-     * @param username
-     * @return
+     * @param pageable 分页信息
+     * @param username 查询条件
+     * @return 搜索结果
      */
     Page<User> findAll(Pageable pageable, String username);
 

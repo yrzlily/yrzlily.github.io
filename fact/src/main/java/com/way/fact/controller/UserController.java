@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -44,8 +45,8 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户首页视图
-     * @return
+     *
+     * @return 用户首页视图
      */
     @GetMapping(value = {"/index"})
     public ModelAndView index(ModelAndView view , HttpServletRequest request){
@@ -54,9 +55,9 @@ public class UserController {
     }
 
     /**
-     * 添加用户视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 添加用户
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view){
@@ -69,10 +70,10 @@ public class UserController {
     }
 
     /**
-     * 用户编辑视图
-     * @param id
-     * @param view
-     * @return
+     *
+     * @param id 用户id
+     * @param view 视图
+     * @return 用户编辑视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Integer id , ModelAndView view){
@@ -87,18 +88,10 @@ public class UserController {
         return view;
     }
 
-    /**
-     * 退出登陆
-     * @return
-     */
-    @RequestMapping("/logout")
-    public String logout(){
-        return "退出";
-    }
 
     /**
-     * 用户列表
-     * @return
+     *
+     * @return 用户列表
      */
     @ResponseBody
     @GetMapping("/list")
@@ -112,9 +105,9 @@ public class UserController {
 
 
     /**
-     * 添加用户
-     * @param user
-     * @return
+     *
+     * @param user 用户实体
+     * @return 添加用户
      */
     @ResponseBody
     @PostMapping("/add")
@@ -124,7 +117,7 @@ public class UserController {
 
         //判断是否有误
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(1001 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1001 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         //MD5加密
@@ -141,10 +134,10 @@ public class UserController {
     }
 
     /**
-     * 编辑用户
-     * @param user
-     * @param bindingResult
-     * @return
+     *
+     * @param user 用户实体
+     * @param bindingResult 错误信息
+     * @return 编辑用户
      */
     @ResponseBody
     @PostMapping("/edit")
@@ -153,7 +146,7 @@ public class UserController {
             BindingResult bindingResult
             ){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(1001 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1001 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         //MD5加密
@@ -178,9 +171,9 @@ public class UserController {
     }
 
     /**
-     * 删除用户
-     * @param id
-     * @return
+     *
+     * @param id  用户id
+     * @return 删除用户
      */
     @ResponseBody
     @RequestMapping("/delete/{id}")
@@ -192,9 +185,9 @@ public class UserController {
     }
 
     /**
-     * 用户详情
-     * @param id
-     * @return
+     *
+     * @param id 用户id
+     * @return 用户详情
      */
     @GetMapping("/details/{id}")
     public Result details(@PathVariable Integer id){

@@ -24,8 +24,7 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     /**
-     * 登陆请求
-     * @return
+     * @return 登陆请求
      */
     @PostMapping("/check")
     @ResponseBody
@@ -53,8 +52,15 @@ public class LoginController {
     }
 
     /**
-     * 未登录跳转页面
-     * @return
+     * @return 退出登陆
+     */
+    @RequestMapping("/logout")
+    public String logout(){
+        return "/login/index";
+    }
+
+    /**
+     * @return 未登录跳转页面
      */
     @RequestMapping("/index")
     public ModelAndView index(ModelAndView view){
@@ -72,8 +78,7 @@ public class LoginController {
     }
 
     /**
-     * 未授权跳转页面
-     * @return
+     * @return 未授权跳转页面
      */
     @RequestMapping("/unAuth")
     public String unauthorizedRole(){

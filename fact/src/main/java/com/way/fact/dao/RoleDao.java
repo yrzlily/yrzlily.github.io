@@ -15,10 +15,10 @@ public interface RoleDao extends JpaRepository<Role , Integer> {
 
     /**
      * 分页查询
-     * @param pageable
-     * @param role
+     * @param pageable   分页信息
+     * @param role  查询条件
      * @return
      */
-    Page<Role> findAll(Specification<Role> pageable , Pageable role);
+    Page<Role> findAll(Specification<Role> role , Pageable pageable);
 
 }

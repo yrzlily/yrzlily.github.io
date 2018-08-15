@@ -13,49 +13,48 @@ public interface NavService {
 
     /**
      * 添加导航
-     * @param nav
+     * @param nav 导航实体
      */
     void addNav(Nav nav);
 
     /**
      * 编辑导航
-     * @param nav
+     * @param nav 导航实体
      */
     void editNav(Nav nav);
 
     /**
      * 删除导航
-     * @param id
-     * @return
+     * @param id 导航id
+     * @return 删除导航
      */
     Optional<Nav> delNav(Integer id);
 
     /**
      * 寻找所有导航
-     * @return
+     * @return 寻找所有导航
      */
     List<Nav> findALL();
 
     /**
      * 导航详情
-     * @param id
-     * @return
+     * @param id 导航id
+     * @return 导航详情
      */
     Optional<Nav> findOne(Integer id);
 
     /**
      * 递归父节点寻找子节点
-     * @param nav
-     * @param parentId
-     * @return
+     * @param nav 导航实体
+     * @param parentId 父节点
+     * @return 子节点
      */
     List<Nav> findAllByParentId(List<Nav> nav , Integer parentId);
 
     /**
      * 递归寻找父节点
-     * @param nav
-     * @return
-     * @throws Exception
+     * @param nav 导航实体
+     * @return 子节点
      */
     Nav findAllByChild(Nav nav) ;
 }

@@ -20,8 +20,8 @@ public class RedisUtils {
 
     /**
      * 批量插入集合到List
-     * @param key
-     * @param obj
+     * @param key 键值
+     * @param obj 储存对象
      */
     public void forList(String key , Object obj){
         redisTemplate.opsForList().leftPushAll(key,obj);
@@ -29,10 +29,10 @@ public class RedisUtils {
 
     /**
      * 获取List
-     * @param key
-     * @param star
-     * @param end
-     * @return
+     * @param key 键值
+     * @param star 起点
+     * @param end 终点
+     * @return 列表
      */
     public Object getList(String key , int star , int end){
         try {
@@ -45,9 +45,9 @@ public class RedisUtils {
 
     /**
      * 删除List
-     * @param key
-     * @param count
-     * @param value
+     * @param key 键值
+     * @param count 长度
+     * @param value 对应值
      */
     public void delList(String key , int count , String value){
         redisTemplate.opsForList().remove(key , count , value);
@@ -55,8 +55,8 @@ public class RedisUtils {
 
     /**
      * 获取List长度
-     * @param key
-     * @return
+     * @param key 键值
+     * @return 长度
      */
     public Long sizeList(String key){
         return redisTemplate.opsForList().size(key);
@@ -64,8 +64,8 @@ public class RedisUtils {
 
     /**
      * 添加Set
-     * @param key
-     * @param list
+     * @param key 键值
+     * @param list 添加对象
      */
     public void setSet(String key , Object list){
         redisTemplate.opsForSet().add(key , list);
@@ -73,8 +73,8 @@ public class RedisUtils {
 
     /**
      * 获取Set
-     * @param key
-     * @return
+     * @param key 键值
+     * @return 对应值
      */
     public Set getSet(String key){
         return redisTemplate.opsForSet().members(key);
@@ -82,10 +82,10 @@ public class RedisUtils {
 
     /**
      * 设置过期时间
-     * @param key
-     * @param lifetime
-     * @param timeUnit
-     * @return
+     * @param key 键值
+     * @param lifetime 过期时间
+     * @param timeUnit 时间格式
+     * @return 过期
      */
     public void setKeyLifeTime(String key , long lifetime , TimeUnit timeUnit){
         redisTemplate.expire(key, lifetime, timeUnit);

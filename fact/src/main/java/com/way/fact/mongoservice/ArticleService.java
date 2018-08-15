@@ -12,9 +12,10 @@ public interface ArticleService {
 
     /**
      * 分页查询
-     * @param pageable
-     * @param search
-     * @return
+     * @param pageable 分页
+     * @param search 搜索
+     * @param cate 分类
+     * @return 分页条数
      */
     Page<Article> list(Pageable pageable, String search , Integer cate);
 

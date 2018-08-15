@@ -15,16 +15,16 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     /**
      * 通过用户名寻找
-     * @param username
-     * @return
+     * @param username 用户名称
+     * @return 用户信息
      */
     User findByUsername(String username);
 
     /**
      * 用户列表
-     * @param specification
-     * @param pageable
-     * @return
+     * @param specification 查询条件
+     * @param pageable 分页信息
+     * @return 用户结果
      */
     Page<User> findAll(Specification<User> specification, Pageable pageable);
 

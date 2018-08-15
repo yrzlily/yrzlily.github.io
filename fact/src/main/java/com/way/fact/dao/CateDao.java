@@ -16,9 +16,9 @@ public interface CateDao extends JpaRepository<Cate , Integer> {
 
     /**
      * 分页查找
-     * @param specification
-     * @param pageable
-     * @return
+     * @param specification 查找条件
+     * @param pageable 分页信息
+     * @return 分页查找
      */
     Page<Cate> findAll(Specification<Cate> specification, Pageable pageable);
 

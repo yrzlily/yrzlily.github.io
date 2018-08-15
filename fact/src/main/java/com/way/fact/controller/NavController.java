@@ -49,8 +49,8 @@ public class NavController {
 
     /**
      * 导航设置
-     * @param view
-     * @return
+     * @param view 视图
+     * @return  导航设置视图
      */
     @RequiresRoles("admin")
     @GetMapping("/index")
@@ -83,9 +83,9 @@ public class NavController {
 
     /**
      * 修改
-     * @param nav
-     * @param bindingResult
-     * @return
+     * @param nav 导航实体
+     * @param bindingResult 错误信息
+     * @return 修改的导航
      */
     @PostMapping("/edit")
     public Object editNav(
@@ -161,9 +161,9 @@ public class NavController {
     }
 
     /**
-     * 移动节点
-     * @param nav
-     * @return
+     *
+     * @param nav 导航实体
+     * @return 移动节点
      */
     @PostMapping("/move")
     public Result move(@RequestBody Nav nav){

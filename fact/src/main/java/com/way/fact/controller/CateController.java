@@ -32,9 +32,8 @@ public class CateController {
     private CateService cateService;
 
     /**
-     * 列表视图
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 列表视图
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
@@ -43,9 +42,8 @@ public class CateController {
     }
 
     /**
-     * 添加分类视图
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 添加分类视图
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view){
@@ -54,10 +52,10 @@ public class CateController {
     }
 
     /**
-     * 编辑分类视图
-     * @param view
-     * @param id
-     * @return
+     *
+     * @param view 视图
+     * @param id 编辑id
+     * @return 编辑分类视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(ModelAndView view , @PathVariable Integer id){
@@ -68,10 +66,9 @@ public class CateController {
     }
 
     /**
-     * 请求分类
-     * @param pageable
-     * @param cate
-     * @return
+     * @param pageable 分页类型
+     * @param cate 分类
+     * @return 请求分类
      */
     @ResponseBody
     @PostMapping("/list")
@@ -82,10 +79,10 @@ public class CateController {
     }
 
     /**
-     * 添加分类
-     * @param cate
-     * @param bindingResult
-     * @return
+     *
+     * @param cate 分类实体
+     * @param bindingResult 错误信息
+     * @return 添加分类
      */
     @ResponseBody
     @PostMapping("/add")
@@ -101,6 +98,11 @@ public class CateController {
         return ResultUtils.success(cate);
     }
 
+    /**
+     *
+     * @param cate 分类实体
+     * @return 编辑分类
+     */
     @PostMapping("/edit")
     public Result edit(@Valid Cate cate){
 
@@ -113,9 +115,9 @@ public class CateController {
     }
 
     /**
-     * 删除分类
-     * @param id
-     * @return
+     *
+     * @param id 删除id
+     * @return 删除分类
      */
     @ResponseBody
     @GetMapping("/delete/{id}")

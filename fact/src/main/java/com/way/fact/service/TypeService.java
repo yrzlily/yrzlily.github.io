@@ -16,26 +16,26 @@ public interface TypeService {
 
     /**
      * 分页查询
-     * @param pageable
-     * @param search
-     * @param pid
-     * @return
+     * @param pageable 分页信息
+     * @param search 搜索条件
+     * @param pid 上级id
+     * @return 当前分类列表
      */
     Page<Type> findAll(Pageable pageable , String search , Integer pid);
 
 
     /**
      * 父类递归
-     * @param id
-     * @return
+     * @param id 子节点
+     * @return 父节点
      */
     Type parent(Integer id);
 
     /**
      * 子类递归
-     * @param list
-     * @param parentID
-     * @return
+     * @param list 所有分类
+     * @param parentID 父节点
+     * @return 子节点
      */
     List<Type> child(List<Type> list , Integer parentID);
 

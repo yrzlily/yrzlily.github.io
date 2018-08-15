@@ -62,7 +62,7 @@
                     <#--<a href="">控制台<span class="layui-badge">9</span></a>-->
                 <#--</li>-->
                 <li class="layui-nav-item">
-                    <a href="/user/logout">退出</a>
+                    <a href="/login/logout">退出</a>
                 </li>
                 <li class="layui-nav-item">
                     <a href=""><img src="${user.avatar}" class="layui-nav-img">${user.username}</a>

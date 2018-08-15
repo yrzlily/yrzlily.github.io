@@ -18,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 
     /**
-     * 后台主页面视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 后台主页面视图
      */
     @RequestMapping(value = {"/index" , ""})
     public ModelAndView index(ModelAndView view){

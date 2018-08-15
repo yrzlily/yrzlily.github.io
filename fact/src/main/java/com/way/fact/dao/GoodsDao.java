@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 public interface GoodsDao extends JpaRepository<Goods ,Integer> {
     /**
      * 多条件分页查询
-     * @param specification
-     * @param pageable
-     * @return
+     * @param specification 查询条件
+     * @param pageable 分页信息
+     * @return 查询列表
      */
     Page<Goods> findAll(Specification<Goods> specification, Pageable pageable);
 

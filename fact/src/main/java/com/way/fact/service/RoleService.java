@@ -10,6 +10,12 @@ import org.springframework.data.domain.Pageable;
  */
 public interface RoleService {
 
+    /**
+     * 角色分页
+     * @param pageable 分页信息
+     * @param role  角色实体
+     * @return 角色列表
+     */
     Page<Role> findAll(Pageable pageable , Role role);
 
 }

@@ -15,7 +15,6 @@ import com.way.fact.service.GoodsService;
 import com.way.fact.service.TypeAttrService;
 import com.way.fact.utils.JsonListUtil;
 import com.way.fact.utils.ResultUtils;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,8 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -60,8 +59,8 @@ public class GoodsController {
 
     /**
      * 商品列表
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 商品列表视图
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
@@ -71,8 +70,8 @@ public class GoodsController {
 
     /**
      * 添加商品
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 添加视图
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view){
@@ -82,8 +81,8 @@ public class GoodsController {
 
     /**
      * 编辑商品
-     * @param view
-     * @return
+     * @param view 视图
+     * @return 编辑 视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Integer id , ModelAndView view){
@@ -97,25 +96,16 @@ public class GoodsController {
 
     /**
      * 规格属性视图
-     * @param view
-     * @param cate
-     * @param gid
-     * @return
+     * @param view 视图
+     * @param cate 分类信息
+     * @param gid 商品id
+     * @return 规格视图
      */
     @RequestMapping("/attr/{cate}/{gid}")
     public ModelAndView view(ModelAndView view , @PathVariable("cate")Integer cate , @PathVariable("gid")Integer gid){
 
         Type type = typeDao.findById(cate).get();
         List<GoodsAttr> goodsAttrList = goodAttrDao.findByGoodsAttrGid(gid);
-
-        for (GoodsAttr goodsAttr : goodsAttrList){
-            System.out.println(goodsAttr.getGoodsAttrName());
-        }
-
-        System.out.println(type.getTypeName());
-        for (TypeAttr typeAttr : type.getTypeAttrs()){
-            System.out.println(typeAttr.getTypeAttributesName());
-        }
 
         view.addObject("typeAttrList" , type.getTypeAttrs());
         view.addObject("goodsAttrList" , goodsAttrList);
@@ -153,7 +143,7 @@ public class GoodsController {
 
     /**
      * 商品分页接口
-     * @return
+     * @return 商品分页信息
      */
     @RequestMapping("/list")
     @ResponseBody
@@ -169,9 +159,9 @@ public class GoodsController {
 
     /**
      * 多条件分页查询商品
-     * @param pageable
-     * @param name
-     * @return
+     * @param pageable 分页信息
+     * @param name 查询条件
+     * @return 结果集
      */
     @PostMapping("/all")
     @ResponseBody
@@ -182,8 +172,8 @@ public class GoodsController {
 
     /**
      * 查询单个商品
-     * @param id
-     * @return
+     * @param id 商品id
+     * @return 商品详情
      */
     @GetMapping("/one/{id}")
     @ResponseBody
@@ -194,20 +184,24 @@ public class GoodsController {
 
     /**
      * 删除商品
-     * @param id
-     * @return
+     * @param list id结果集
+     * @return  删除商品
      */
-    @GetMapping("/del/{id}")
+    @PostMapping("/del")
     @ResponseBody
-    public Result delete(@PathVariable Integer id){
-        goodsDao.deleteById(id);
-        return ResultUtils.success(id);
+    public Result delete(@RequestBody @RequestParam("list[]") List<Integer> list){
+
+        for(Integer id: list){
+            goodsDao.deleteById(id);
+        }
+
+        return ResultUtils.success(list);
     }
 
     /**
      * 获取商品类型
-     * @param id
-     * @return
+     * @param id 商品id
+     * @return 商品详情
      */
     @GetMapping("/type/{id}")
     @ResponseBody
@@ -219,9 +213,9 @@ public class GoodsController {
 
     /**
      * 添加商品
-     * @param goods
-     * @param bindingResult
-     * @return
+     * @param goods 商品实体
+     * @param bindingResult 错误信息
+     * @return 添加的商品
      */
     @PostMapping("/add")
     @ResponseBody
@@ -231,7 +225,7 @@ public class GoodsController {
             GoodsContent goodsContent
     ){
         if(goods == null){
-            return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10001 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         goods.setName(goods.getName());
@@ -246,23 +240,22 @@ public class GoodsController {
         goodsContent.setContent(goodsContent.getContent());
         goods.setContent(goodsContent);
         goodsDao.save(goods);
-        System.out.println(goods.getId());
 
         return ResultUtils.success(goods);
     }
 
     /**
      * 编辑商品
-     * @param goods
-     * @param bindingResult
-     * @return
+     * @param goods 商品实体
+     * @param bindingResult 错误信息
+     * @return 编辑的商品
      */
     @PostMapping("/edit")
     @ResponseBody
     public Result edit(Goods goods , BindingResult bindingResult , GoodsContent goodsContent ){
 
         if(goods == null){
-            return ResultUtils.error(10001 , bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(10001 , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         goods.setId(goods.getId());
@@ -289,8 +282,8 @@ public class GoodsController {
 
     /**
      * 更新规格属性
-     * @param goodsAttrs
-     * @return
+     * @param goodsAttrs 规格实体
+     * @return 规格列表
      */
     @ResponseBody
     @PostMapping("/attrSave")
@@ -307,7 +300,6 @@ public class GoodsController {
 
             if(goodsAttr.getId() != null){
                 goodsAttr.setId(goodsAttr.getId());
-                System.out.println(goodsAttr.getGoodsAttrName());
             }
 
             goodAttrDao.save(goodsAttr);
@@ -318,8 +310,8 @@ public class GoodsController {
 
     /**
      * 删除属性
-     * @param id
-     * @return
+     * @param id 属性 id
+     * @return 删除的属性
      */
     @PostMapping("/attrDel/{id}")
     @ResponseBody
@@ -330,8 +322,8 @@ public class GoodsController {
 
     /**
      * 储存规格
-     * @param goodsSpec
-     * @return
+     * @param goodsSpec 规格匹配实体
+     * @return 匹配列表
      */
     @ResponseBody
     @PostMapping("/addSpec")
@@ -351,9 +343,9 @@ public class GoodsController {
 
     /**
      * 修改库存
-     * @param id
-     * @param num
-     * @return
+     * @param id 规格id
+     * @param num 库存
+     * @return 修改结果
      */
     @PostMapping("/editSpec")
     @ResponseBody
@@ -365,8 +357,8 @@ public class GoodsController {
 
     /**
      * 删除匹配
-     * @param id
-     * @return
+     * @param id 匹配id
+     * @return 删除的匹配
      */
     @ResponseBody
     @PostMapping("/delSpec/{id}")

@@ -24,8 +24,8 @@ public class ShiroConfig  {
 
     /**
      *主体配置
-     * @param securityManager
-     * @return
+     * @param securityManager 认证中心
+     * @return 处理认证信息
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
@@ -35,21 +35,29 @@ public class ShiroConfig  {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         //免权限路劲
-        filterChainDefinitionMap.put("/nav","anon");
+        filterChainDefinitionMap.put("/index/**","anon");
         filterChainDefinitionMap.put("/login/**","anon");
         filterChainDefinitionMap.put("/product","anon");
 
         //登出路劲
         filterChainDefinitionMap.put("/user/logout","logout");
 
-        //必须认证的路劲
-        filterChainDefinitionMap.put("/**","authc");
+        //前端必须认证的路径
+        filterChainDefinitionMap.put("/order/**" , "authc");
+
+        //后端必须认证的路劲
+        filterChainDefinitionMap.put("/main/**","authc");
+        filterChainDefinitionMap.put("/admin/**","authc");
+        filterChainDefinitionMap.put("/role/**","authc");
+        filterChainDefinitionMap.put("/type/**","authc");
+        filterChainDefinitionMap.put("/cate/**","authc");
+        filterChainDefinitionMap.put("/goods/**","authc");
 
         //未登录跳转界面
         filterFactoryBean.setLoginUrl("/login/index");
 
         //登录成功跳转界面
-        filterFactoryBean.setSuccessUrl("/user/index");
+        filterFactoryBean.setSuccessUrl("/login/index");
 
         //未授权界面;
         filterFactoryBean.setUnauthorizedUrl("/login/unAuth");
@@ -60,7 +68,7 @@ public class ShiroConfig  {
 
     /**
      * 管理域
-     * @return
+     * @return 管理角色认证
      */
     @Bean
     public MyShiroRealm myShiroRealm()
@@ -73,7 +81,7 @@ public class ShiroConfig  {
 
     /**
      * 设置session过期时间
-     * @return
+     * @return 缓存时间
      */
     @Bean
     public DefaultWebSessionManager sessionManager(){
@@ -85,8 +93,8 @@ public class ShiroConfig  {
     }
 
     /**
-     *会话管理
-     * @return
+     *
+     * @return 会话管理
      */
     @Bean
     public SecurityManager securityManager(){
@@ -97,9 +105,9 @@ public class ShiroConfig  {
     }
 
     /**
-     * 加入注解的使用
-     * @param securityManager
-     * @return
+     *
+     * @param securityManager 加入注解的使用
+     * @return 使用注解
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
@@ -109,8 +117,8 @@ public class ShiroConfig  {
     }
 
     /**
-     * 凭证匹配器
-     * @return
+     *
+     * @return 凭证匹配器
      */
     @Bean(name="credentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher(){

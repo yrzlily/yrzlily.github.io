@@ -12,8 +12,8 @@ public class ResultUtils {
 
     /**
      * 成功
-     * @param object
-     * @return
+     * @param object 数据
+     * @return 成功信息
      */
     public static Result success( Object object){
         Result result = new Result();
@@ -35,9 +35,9 @@ public class ResultUtils {
 
     /**
      * lay参数
-     * @param count
-     * @param data
-     * @return
+     * @param count 页面总数
+     * @param data 数据
+     * @return 列表
      */
     public static Object layPage( Long count , Object data){
         Layer layer = new Layer();
@@ -50,8 +50,8 @@ public class ResultUtils {
 
     /**
      * 错误信息
-     * @param nullError
-     * @return
+     * @param nullError 空值错误
+     * @return 空值错误
      */
     public static Object error(UserEnum nullError) {
         return nullError;

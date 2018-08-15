@@ -29,9 +29,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 文章分页查询
-     * @param pageable
-     * @param search
-     * @return
+     * @param pageable 分页信息
+     * @param search 查询条件
+     * @return 分页列表
      */
     @Override
     public Page<Article> list(Pageable pageable, String search , Integer cate) {

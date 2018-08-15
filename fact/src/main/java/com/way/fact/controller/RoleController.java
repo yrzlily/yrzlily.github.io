@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * 管理权限控制层
@@ -43,9 +44,9 @@ public class RoleController{
     }
 
     /**
-     * 权限列表视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 权限列表视图
      */
     @GetMapping("/index")
     public ModelAndView index(ModelAndView view){
@@ -54,9 +55,9 @@ public class RoleController{
     }
 
     /**
-     * 添加权限视图
-     * @param view
-     * @return
+     *
+     * @param view 视图
+     * @return 添加权限视图
      */
     @GetMapping("/add")
     public ModelAndView add(ModelAndView view){
@@ -65,10 +66,10 @@ public class RoleController{
     }
 
     /**
-     * 编辑权限视图
-     * @param id
-     * @param view
-     * @return
+     *
+     * @param id 编辑id
+     * @param view 视图
+     * @return 编辑权限视图
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Integer id,ModelAndView view ){
@@ -79,16 +80,16 @@ public class RoleController{
     }
 
     /**
-     * 添加权限
-     * @param role
-     * @param bindingResult
-     * @return
+     *
+     * @param role  权限实体
+     * @param bindingResult 错误信息
+     * @return 添加权限
      */
     @ResponseBody
     @PostMapping("/add")
     public Result add(@Valid Role role , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(1002,bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1002, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         role.setName(role.getName());
@@ -99,16 +100,16 @@ public class RoleController{
     }
 
     /**
-     * 编辑权限
-     * @param role
-     * @param bindingResult
-     * @return
+     *
+     * @param role 权限实体
+     * @param bindingResult 错误信息
+     * @return 编辑权限
      */
     @ResponseBody
     @PostMapping("/edit")
     public Result edit( @Valid Role role , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResultUtils.error(1002,bindingResult.getFieldError().getDefaultMessage());
+            return ResultUtils.error(1002, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         role.setId(role.getId());
@@ -120,8 +121,8 @@ public class RoleController{
     }
 
     /**
-     * 获取所有权限角色
-     * @return
+     *
+     * @return 获取所有权限角色
      */
     @ResponseBody
     @PostMapping("/list")
@@ -132,9 +133,9 @@ public class RoleController{
     }
 
     /**
-     * 删除权限角色
-     * @param id
-     * @return
+     *
+     * @param id 权限角色id
+     * @return 删除权限角色
      */
     @ResponseBody
     @GetMapping("/delete/{id}")

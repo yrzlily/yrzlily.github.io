@@ -18,9 +18,9 @@ public interface TypeAttrDao extends JpaRepository<TypeAttr, Integer> {
 
     /**
      * 寻找对应的分类规格属性
-     * @param specification
-     * @param pageable
-     * @return
+     * @param specification 查询条件
+     * @param pageable 分页信息
+     * @return 结果集
      */
     Page<TypeAttr> findAll(Specification<TypeAttr> specification ,  Pageable pageable);
 

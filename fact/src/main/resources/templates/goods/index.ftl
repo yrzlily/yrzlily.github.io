@@ -18,6 +18,9 @@
             <button type="button" id="search" class="layui-btn">搜索</button>
         </div>
     </form>
+    <div class="layui-inline">
+        <button id="del" class="layui-btn layui-btn-danger">删除</button>
+    </div>
     <table id="goods" lay-filter="goods"></table>
 </div>
 </@override>
@@ -162,6 +165,38 @@
                 shadeClose :true,
                 content: '<img src="'+src+'" width="100%" />'
             });
+        }).on('click' , '#del' , function () {
+            var checkStatus = table.checkStatus('goods').data;
+            var arr = [];
+
+            for (var i=0; i<checkStatus.length; i++){
+                arr.push(checkStatus[i].id)
+            }
+            console.log(arr);
+
+            $.ajax({
+                url:'del',
+                dataType : 'json',
+                data:{
+                    list:arr
+                },
+                type:'post',
+                success:function (data) {
+                    if(data.code === 0){
+                        layer.msg(data.msg , {
+                            icon:1,
+                            end:function (data) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        layer.msg(data.msg, {
+                            icon:2
+                        });
+                    }
+                }
+            });
+
         });
 
     });

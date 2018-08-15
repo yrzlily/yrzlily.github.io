@@ -22,8 +22,8 @@ public class ArticleDaoImpl implements ArticleDao {
     private MongoTemplate mongoTemplate;
 
     /**
-     * 获取所有文章
-     * @return
+     *
+     * @return 获取所有文章
      */
     @Override
     public List<Article> list() {
@@ -32,8 +32,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
     /**
      * 计算文章总数
-     * @param query
-     * @return
+     * @param query 条件
+     * @return 总数
      */
     @Override
     public Long count(Query query) {
@@ -41,8 +41,8 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     /**
-     * 添加文章
-     * @param article
+     *
+     * @param article 添加文章
      */
     @Override
     public void add(Article article) {
@@ -51,7 +51,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
     /**
      * 删除文章
-     * @param id
+     * @param id 删除id
      */
     @Override
     public void delete(String id) {
@@ -61,8 +61,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
     /**
      * 文章详情
-     * @param id
-     * @return
+     * @param id 文章id
+     * @return 详情
      */
     @Override
     public Article find(String id) {
@@ -72,7 +72,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
     /**
      * 编辑文章
-     * @param article
+     * @param article 文章实体
      */
     @Override
     public void edit(Article article) {

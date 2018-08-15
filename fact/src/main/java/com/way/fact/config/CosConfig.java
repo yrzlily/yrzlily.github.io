@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -30,16 +31,16 @@ public class CosConfig {
 
     /**
      * 文件上传到COS
-     * @param file
-     * @param request
-     * @return
-     * @throws IOException
+     * @param file 上传文件
+     * @param request http请求
+     * @return 上传文件路径
+     * @throws IOException 异常
      */
     public String cosFileUpload(MultipartFile file , HttpServletRequest request) throws IOException {
         COSClient client = new COSClient(cred , clientConfig);
 
         //重命名文件
-        String finType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String finType = file.getOriginalFilename().substring(Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf("."));
         UUID uid = UUID.randomUUID();
 
         //上传到本地

@@ -16,15 +16,15 @@ public interface GoodAttrDao extends JpaRepository<GoodsAttr , Integer> {
 
     /**
      * 通过商品寻找规格
-     * @param gid
-     * @return
+     * @param gid 商品id
+     * @return 规格
      */
     List<GoodsAttr> findByGoodsAttrGid(Integer gid);
 
     /**
      * 通过集合查询
-     * @param id
-     * @return
+     * @param id 商品集id
+     * @return 属性列表
      */
     @Query("select ga from GoodsAttr ga where ga.id in ?1")
     List<GoodsAttr> findAllByList(List<Integer> id);

@@ -28,8 +28,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 权限验证
-     * @param principals
-     * @return
+     * @param principals 角色信息
+     * @return 赋予角色
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -48,9 +48,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 登录验证
-     * @param authenticationToken
-     * @return
-     * @throws AuthenticationException
+     * @param authenticationToken 验证信息
+     * @return 登陆用户
+     * @throws AuthenticationException 登陆异常
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {

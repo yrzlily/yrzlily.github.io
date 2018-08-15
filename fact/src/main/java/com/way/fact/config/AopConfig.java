@@ -28,12 +28,13 @@ public class AopConfig {
     }
 
     /**
-     * 日志打印
-     * @param joinPoint
+     * 请求信息
+     * @param joinPoint 加入切点
      */
     @Before("point()")
     public void doBefore(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
 
         //url
@@ -48,11 +49,18 @@ public class AopConfig {
         log.info("Args = {}",joinPoint.getArgs());
     }
 
+    /**
+     * 结束
+     */
     @After("point()")
     public void doAfter(){
         log.info("end");
     }
 
+    /**
+     * 响应信息
+     * @param object 响应参数
+     */
     @AfterReturning(returning = "object" , pointcut = "point()")
     public void doAfterReturning(Object object){
         log.info("RESPONSE = {}",object.toString());
