@@ -85,7 +85,6 @@ public class RedisUtils {
      * @param key 键值
      * @param lifetime 过期时间
      * @param timeUnit 时间格式
-     * @return 过期
      */
     public void setKeyLifeTime(String key , long lifetime , TimeUnit timeUnit){
         redisTemplate.expire(key, lifetime, timeUnit);

@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    username: root
+    password: Wwe~6895238
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://118.25.91.78:3306/way?characterEncoding=utf8&useSSL=false
+    hikari:
+      validation-timeout: 3000
+      connection-timeout: 60000
+      idle-timeout: 60000
+      max-lifetime: 60000
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+      open-in-view: true

@@ -18,7 +18,6 @@ public class FreeMarkerConfig {
     private freemarker.template.Configuration configuration;
 
     /**
-     *
      * @throws Exception
      */
     @PostConstruct

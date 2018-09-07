@@ -9,6 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 /**
+ * 线程池配置
  * @author yrz
  */
 @Configuration
@@ -16,13 +17,12 @@ import java.util.concurrent.Executor;
 public class TaskExecutorConfig implements AsyncConfigurer {
 
     @Bean
-    @Override
-    public Executor getAsyncExecutor() {
+    public Executor asyncServiceExecutor() {
 
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(5);
-        taskExecutor.setMaxPoolSize(10);
-        taskExecutor.setQueueCapacity(25);
+        taskExecutor.setCorePoolSize(1);
+        taskExecutor.setMaxPoolSize(1);
+        taskExecutor.setQueueCapacity(1);
         taskExecutor.initialize();
         return taskExecutor;
     }

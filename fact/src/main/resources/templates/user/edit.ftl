@@ -103,7 +103,7 @@
                             layer.msg(data.msg , {
                                 icon:1,
                                 end:function (data) {
-                                    location.reload();
+                                    // location.reload();
                                 }
                             });
                         }else{

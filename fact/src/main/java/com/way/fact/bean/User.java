@@ -1,7 +1,6 @@
 package com.way.fact.bean;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

@@ -23,16 +23,15 @@ public class GoodsServiceImpl implements GoodsService {
 
     /**
      * 分页模糊查询
-     * @param pageable
-     * @param search
-     * @return
+     * @param pageable 分页
+     * @param search 搜索
+     * @return 返回结果
      */
     @Override
     public Page<Goods> findAll(
             Pageable pageable,
             String search
     ){
-
         return goodsDao.findAll(new Specification<Goods>(){
 
             @Override

@@ -153,7 +153,7 @@ public class NavController {
 
             list = navService.findAllByParentId(navDao.findAll(SortUtils.basicSort(new Sort("asc","sort"))) , parentID);
             redisUtils.forList("nav" , list);
-            redisUtils.setKeyLifeTime("nav" , 10 , TimeUnit.SECONDS);
+            redisUtils.setKeyLifeTime("nav" , 3000 , TimeUnit.SECONDS);
 
         }
 

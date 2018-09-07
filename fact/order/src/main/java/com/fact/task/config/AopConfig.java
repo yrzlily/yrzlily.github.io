@@ -1,7 +1,9 @@
-package com.way.fact.config;
+package com.fact.task.config;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -9,8 +11,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 /**
+ * aop配置
  * @author yrz
  */
 @Aspect
@@ -19,20 +23,17 @@ public class AopConfig {
 
     private static final Logger log = LoggerFactory.getLogger(AopConfig.class);
 
-    /**
-     * 切点
-     */
-    @Pointcut("execution(* com.way.fact.controller.*Controller.*(..))")
-    public void point(){
+    @Pointcut("execution(* com.fact.task.controller.*Controller.*(..))")
+    public void cutPoint(){
 
     }
 
     /**
-     * 请求信息
-     * @param joinPoint 加入切点
+     * 请求信息详情
+     * @param joinPoint
      */
-    @Before("point()")
-    public void doBefore(JoinPoint joinPoint){
+    @Before("cutPoint()")
+    public void before(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
@@ -48,23 +49,6 @@ public class AopConfig {
         //参数
         log.info("Args = {}",joinPoint.getArgs());
 
-    }
-
-    /**
-     * 结束
-     */
-    @After("point()")
-    public void doAfter(){
-        log.info("end");
-    }
-
-    /**
-     * 响应信息
-     * @param object 响应参数
-     */
-    @AfterReturning(returning = "object" , pointcut = "point()")
-    public void doAfterReturning(Object object){
-        log.info("RESPONSE = {}",object.toString());
     }
 
 }
